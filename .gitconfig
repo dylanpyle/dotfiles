@@ -1,0 +1,12 @@
+[user]
+  email = me@dylanpyle.com
+  name = Dylan Pyle
+
+[alias]
+  branches = for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short) %(committerdate:short) %(authorname)'
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  lg = log -p
