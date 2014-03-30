@@ -9,6 +9,7 @@ setopt nocorrectall # Don't correct *everything*
 setopt correct # Do correct commands, but not arguments
 setopt autocd
 setopt auto_resume
+setopt prompt_subst
 setopt nobeep
 alias ls='ls -lGh'
 
@@ -24,6 +25,6 @@ function chpwd() {
 chpwd
 
 PROMPT='
-'$fg[cyan]'%m:'$fg[yellow]%~$fg[cyan]' $ '$reset_color
+%{$fg[cyan]%}%m:%{$fg[yellow]%}%~%{$fg[cyan]%} $ %{$reset_color%}'
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
