@@ -22,6 +22,10 @@ noremap! <Right> <Esc>
 nnoremap <silent> <S-Tab> :bp<CR>                                                                                                                 
 nnoremap <silent> <Tab> :bn<CR>
 
+" <Leader>y and <Leader>p for copy/paste to system clipboard
+vmap <Leader>y :!pbcopy && pbpaste<CR>
+nnoremap <Leader>p :read !pbpaste<CR><Esc>
+
 
 " ~~~ Indentation options ~~~
 
