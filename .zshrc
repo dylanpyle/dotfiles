@@ -28,3 +28,5 @@ PROMPT='
 %{$fg[cyan]%}%m:%{$fg[yellow]%}%~%{$fg[cyan]%} $ %{$reset_color%}'
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+alias center="sed  -e :a -e 's/^.\{1,'`expr $COLUMNS - 1`'\}$/ & /;ta'"
