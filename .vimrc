@@ -56,6 +56,9 @@ set ignorecase
 " ... except when search contains an uppercase
 set smartcase
 
+" Highlight all matches
+set hlsearch
+
 " Clear current search when pressing Enter
 nnoremap <CR> :noh<CR><CR>
 
