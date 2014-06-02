@@ -26,6 +26,9 @@ nnoremap <silent> <Tab> :bn<CR>
 vmap <Leader>y :!pbcopy && pbpaste<CR>
 nnoremap <Leader>p :read !pbpaste<CR><Esc>
 
+" Back to single-prefix EasyMotion movements
+map <Leader> <Plug>(easymotion-prefix)
+
 
 " ~~~ Indentation options ~~~
 
@@ -101,3 +104,6 @@ set exrc
 
 " Disable unsafe commands in local .vimrc files
 set secure
+
+" Allow mouse
+set mouse=a
