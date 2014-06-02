@@ -27,7 +27,7 @@ chpwd
 PROMPT='
 %{$fg[cyan]%}%m:%{$fg[yellow]%}%~%{$fg[cyan]%} $ %{$reset_color%}'
 
-PATH=$PATH:$HOME/.rvm/bin
+PATH=$PATH:$HOME/.rvm/bin:~/.bin
 
 alias center="sed  -e :a -e 's/^.\{1,'`expr $COLUMNS - 1`'\}$/ & /;ta'"
 alias nw="/Applications/node-webkit.app/Contents/MacOS/node-webkit"
