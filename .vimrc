@@ -110,3 +110,6 @@ set secure
 
 " Allow mouse
 set mouse=a
+
+" Fix strange backspace behavior
+set backspace=2
