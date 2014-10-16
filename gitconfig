@@ -11,3 +11,4 @@
   df = diff
   lg = log -p
   sp = smart-pull
+  rb = rebase

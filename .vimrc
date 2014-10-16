@@ -29,6 +29,9 @@ nnoremap <Leader>p :read !pbpaste<CR><Esc>
 " Back to single-prefix EasyMotion movements
 map <Leader> <Plug>(easymotion-prefix)
 
+" Use <Space> to toggle NERDTree
+noremap <Space> :NERDTreeToggle<CR>
+
 
 " ~~~ Indentation options ~~~
 
@@ -91,14 +94,9 @@ colorscheme solarized
 " Define whitespace colors
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
 
-" Show trailing whitespace
-match ExtraWhitespace /\s\+$/
+" Show trailing whitespace, except when typing
+:match ExtraWhitespace /\s\+\%#\@<!$/
 
-" Show trailing whitespace and spaces before a tab
-match ExtraWhitespace /\s\+$\| \+\ze\t/
-
-" Show tabs that are not at the start of a line
-match ExtraWhitespace /[^\t]\zs\t\+/
 
 " ~~~ Misc ~~~
 
