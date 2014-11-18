@@ -19,7 +19,7 @@ noremap  <Right> ""
 noremap! <Right> <Esc>
 
 " Use Tab and Shift-Tab to switch buffers
-nnoremap <silent> <S-Tab> :bp<CR>                                                                                                                 
+nnoremap <silent> <S-Tab> :bp<CR>
 nnoremap <silent> <Tab> :bn<CR>
 
 " <Leader>y and <Leader>p for copy/paste to system clipboard
@@ -31,6 +31,14 @@ map <Leader> <Plug>(easymotion-prefix)
 
 " Use <Space> to toggle NERDTree
 noremap <Space> :NERDTreeToggle<CR>
+
+" Make Buffer search the default Ctrl-P action
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPBuffer'
+
+" Use Backslash-backslash for 'normal' Ctrl-P functionality
+noremap <Bslash><Bslash> :CtrlP<CR>
+
 
 
 " ~~~ Indentation options ~~~
@@ -67,6 +75,7 @@ nnoremap <CR> :noh<CR><CR>
 
 " Additional settings for wildcard ignoring (also used in CtrlP)
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*/bower_components/*
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 
 " ~~~ Display options ~~~
@@ -96,6 +105,9 @@ highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
 
 " Show trailing whitespace, except when typing
 :match ExtraWhitespace /\s\+\%#\@<!$/
+
+" Show row/column positin
+set ruler
 
 
 " ~~~ Misc ~~~

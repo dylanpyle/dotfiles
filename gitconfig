@@ -12,3 +12,5 @@
   lg = log -p
   sp = smart-pull
   rb = rebase
+[push]
+	default = simple
