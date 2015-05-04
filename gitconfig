@@ -3,7 +3,8 @@
   name = Dylan Pyle
 
 [alias]
-  branches = for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short) %(committerdate:short) %(authorname)'
+  branches = for-each-ref --sort=committerdate refs/heads/ --format='%(refname:short) %(committerdate:short) %(authorname)'
+  pending = log origin/master..origin/develop --merges --pretty=format:'%b (%an)'
   st = status
   ci = commit
   br = branch

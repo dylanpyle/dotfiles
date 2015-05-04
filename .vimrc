@@ -25,6 +25,7 @@ nnoremap <silent> <Tab> :bn<CR>
 " <Leader>y and <Leader>p for copy/paste to system clipboard
 vmap <Leader>y :!pbcopy && pbpaste<CR>
 nnoremap <Leader>p :read !pbpaste<CR><Esc>
+vmap <Leader>q :!coffee -bcsp --no-header<CR>
 
 " Back to single-prefix EasyMotion movements
 map <Leader> <Plug>(easymotion-prefix)
@@ -32,13 +33,14 @@ map <Leader> <Plug>(easymotion-prefix)
 " Use <Space> to toggle NERDTree
 noremap <Space> :NERDTreeToggle<CR>
 
-" Make Buffer search the default Ctrl-P action
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPBuffer'
+" Remap CtrlP key to backslash
+let g:ctrlp_map = '<Bslash>'
 
-" Use Backslash-backslash for 'normal' Ctrl-P functionality
-noremap <Bslash><Bslash> :CtrlP<CR>
+" Open CtrlP in the last mode (switch with c-f and c-b) we were using
+let g:ctrlp_cmd = 'CtrlPLastMode'
 
+" Add fuzzy line extension
+let g:ctrlp_extensions = ['line']
 
 
 " ~~~ Indentation options ~~~
@@ -87,10 +89,8 @@ set number
 set cursorline
 
 " Show 80 character marker
-set colorcolumn=80
-
-" ... in black
-hi ColorColumn ctermbg=black
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
 
 " Syntax highlighting / ft detection
 syntax on
@@ -98,7 +98,7 @@ filetype plugin indent on
 
 " Set current color scheme
 set background=dark
-colorscheme solarized
+colorscheme flattown
 
 " Define whitespace colors
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
@@ -108,6 +108,13 @@ highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
 
 " Show row/column positin
 set ruler
+
+" Only show cursorline in active window
+augroup CursorLineOnlyInActiveWindow
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+augroup END
 
 
 " ~~~ Misc ~~~
