@@ -98,7 +98,7 @@ filetype plugin indent on
 
 " Set current color scheme
 set background=dark
-colorscheme flattown
+colorscheme gruvbox
 
 " Define whitespace colors
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen

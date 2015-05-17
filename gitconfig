@@ -12,6 +12,7 @@
   df = diff
   lg = log -p
   sp = smart-pull
+  sl = smart-log
   rb = rebase
 [push]
 	default = simple
