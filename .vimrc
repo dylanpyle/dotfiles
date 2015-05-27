@@ -33,6 +33,9 @@ map <Leader> <Plug>(easymotion-prefix)
 " Use <Space> to toggle NERDTree
 noremap <Space> :NERDTreeToggle<CR>
 
+" In visual mode, use space for EasyAlign
+vmap <Space> :EasyAlign\ <CR>
+
 " Remap CtrlP key to backslash
 let g:ctrlp_map = '<Bslash>'
 
@@ -104,7 +107,7 @@ colorscheme gruvbox
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
 
 " Show trailing whitespace, except when typing
-:match ExtraWhitespace /\s\+\%#\@<!$/
+match ExtraWhitespace /\s\+\%#\@<!$/
 
 " Show row/column positin
 set ruler
@@ -115,6 +118,9 @@ augroup CursorLineOnlyInActiveWindow
   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
   autocmd WinLeave * setlocal nocursorline
 augroup END
+
+" Hide NERDTree clutter
+let NERDTreeMinimalUI=1
 
 
 " ~~~ Misc ~~~
