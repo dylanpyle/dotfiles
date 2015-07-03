@@ -13,12 +13,11 @@ setopt prompt_subst
 setopt nobeep
 setopt inc_append_history
 setopt share_history
-alias ls='ls -1FG'
+alias ls='ls -G'
 alias v='vim'
 alias g='git'
 alias o='open'
 alias f='git grep -in'
-alias fuck='sudo'
 alias serve='python -m SimpleHTTPServer'
 
 function tabname() {
@@ -30,9 +29,19 @@ function chpwd() {
   tabname `pwd | awk -F\/ '{print $(NF)}'`
 }
 
+# Print a newline before each prompt except the first one.
+export cntr=1
+
+function precmd() {
+  if [[ $cntr -gt 1 ]]; then
+    echo '';
+  fi
+  ((cntr = cntr + 1))
+}
+
 chpwd
 
-PROMPT='%{$fg[white]%}%~%{$fg[blue]%} λ %{$reset_color%}'
+PROMPT='%{$fg[white]%}%~%{$fg[blue]%} Ϟ %{$reset_color%}'
 RPS1='%{$fg[blue]%}$(git rev-parse --abbrev-ref HEAD 2> /dev/null) %{$fg[black]%}%D{%H:%M}%{$reset_color%}'
 
 TMOUT=1
