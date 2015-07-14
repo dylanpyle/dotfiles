@@ -23,8 +23,10 @@ nnoremap <silent> <S-Tab> :bp<CR>
 nnoremap <silent> <Tab> :bn<CR>
 
 " <Leader>y and <Leader>p for copy/paste to system clipboard
-vmap <Leader>y :!pbcopy && pbpaste<CR>
-nnoremap <Leader>p :read !pbpaste<CR><Esc>
+vmap <Leader>y "*y<CR>
+nnoremap <Leader>p "*p<CR><Esc>
+
+" <Leader>q for compiling coffeescript inline
 vmap <Leader>q :!coffee -bcsp --no-header<CR>
 
 " Back to single-prefix EasyMotion movements
@@ -92,8 +94,8 @@ set number
 set cursorline
 
 " Show 80 character marker
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+highlight OverLength ctermbg=lightgrey
+call matchadd('OverLength', '/\%81v.\+/')
 
 " Syntax highlighting / ft detection
 syntax on
@@ -104,10 +106,10 @@ set background=dark
 colorscheme hybrid
 
 " Define whitespace colors
-highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
+highlight ExtraWhitespace ctermbg=darkgreen
 
-" Show trailing whitespace, except when typing
-match ExtraWhitespace /\s\+\%#\@<!$/
+" Show trailing whitespace
+call matchadd('ExtraWhitespace', '/\s\+$/')
 
 " Show row/column positin
 set ruler
