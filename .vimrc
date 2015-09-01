@@ -35,8 +35,11 @@ map <Leader> <Plug>(easymotion-prefix)
 " Use <Space> to toggle NERDTree
 noremap <Space> :NERDTreeToggle<CR>
 
-" In visual mode, use space for EasyAlign
-vmap <Space> :EasyAlign\ <CR>
+" In visual mode, use space for sort
+vmap <Space> :sort<CR>
+
+" In visual mode, use leader-space for EasyAlign
+vmap <Leader><Space> :EasyAlign\ <CR>
 
 " Remap CtrlP key to backslash
 let g:ctrlp_map = '<Bslash>'
@@ -46,6 +49,9 @@ let g:ctrlp_cmd = 'CtrlPLastMode'
 
 " Add fuzzy line extension
 let g:ctrlp_extensions = ['line']
+
+" Allow <esc><esc> to escape terminal buffers
+tnoremap <esc><esc> <C-\><C-n>
 
 
 " ~~~ Indentation options ~~~

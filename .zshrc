@@ -14,9 +14,12 @@ setopt nobeep
 setopt inc_append_history
 setopt share_history
 alias ls='ls -G'
-alias v='vim'
+alias ll='ls -Gl'
+alias v='nvim'
+alias vim='nvim'
 alias g='git'
 alias o='open'
+alias h='heroku'
 alias f='git grep -in'
 alias serve='python -m SimpleHTTPServer'
 
@@ -55,7 +58,7 @@ export PATH=/opt/boxen/heroku/bin:bin:$PATH
 
 alias center="sed  -e :a -e 's/^.\{1,'`expr $COLUMNS - 1`'\}$/ & /;ta'"
 
-export EDITOR='vim'
+export EDITOR='nvim'
 
 alias POST='curl -X POST -H "Content-Type: application/json" '
 alias GET='curl -X GET '
