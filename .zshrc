@@ -23,6 +23,10 @@ alias h='heroku'
 alias f='git grep -in'
 alias serve='python -m SimpleHTTPServer'
 
+function rb() {
+  git rebase -i HEAD~$1
+}
+
 function tabname() {
   echo -ne "\033]0;"$@"\007"
 }
@@ -47,7 +51,7 @@ chpwd
 PROMPT='%{$fg[white]%}%~%{$fg[blue]%} Ϟ %{$reset_color%}'
 RPS1='%{$fg[blue]%}$(git rev-parse --abbrev-ref HEAD 2> /dev/null) %{$fg[black]%}%D{%H:%M}%{$reset_color%}'
 
-TMOUT=1
+TMOUT=20
 
 TRAPALRM() {
   zle reset-prompt
@@ -60,11 +64,11 @@ alias center="sed  -e :a -e 's/^.\{1,'`expr $COLUMNS - 1`'\}$/ & /;ta'"
 
 export EDITOR='nvim'
 
-alias POST='curl -X POST -H "Content-Type: application/json" '
-alias GET='curl -X GET '
-alias PUT='curl -X PUT -H "Content-Type: application/json" '
-alias PATCH='curl -X PATCH -H "Content-Type: application/json" '
-alias DELETE='curl -X DELETE '
+alias POST='curl -sX POST -H "Content-Type: application/json" '
+alias GET='curl -sX GET '
+alias PUT='curl -sX PUT -H "Content-Type: application/json" '
+alias PATCH='curl -sX PATCH -H "Content-Type: application/json" '
+alias DELETE='curl -sX DELETE '
 
 bindkey -e
 bindkey '^[[1;9C' forward-word

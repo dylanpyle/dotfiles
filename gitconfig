@@ -14,5 +14,13 @@
   sp = smart-pull
   sl = smart-log
   rb = rebase
+  d = difftool
+  huh = diff HEAD~1
 [push]
-	default = simple
+  default = simple
+[core]
+  excludesfile = /Users/dylan/.gitignore_global
+[diff]
+  tool = vimdiff
+[difftool]
+  prompt = false

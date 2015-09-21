@@ -51,7 +51,11 @@ let g:ctrlp_cmd = 'CtrlPLastMode'
 let g:ctrlp_extensions = ['line']
 
 " Allow <esc><esc> to escape terminal buffers
-tnoremap <esc><esc> <C-\><C-n>
+" (neovim-specific; disabled for right now since I use this file as my .vimrc
+" too and don't use this feature often enough to bother figuring out how to keep
+" it from throwing errors in vim)
+"
+" tnoremap <esc><esc> <C-\><C-n>
 
 
 " ~~~ Indentation options ~~~
