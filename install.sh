@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ln -s ~/dotfiles/.curlrc ~/.curlrc
+ln -s ~/dotfiles/.psqlrc ~/.psqlrc
 ln -s ~/dotfiles/.vim ~/.nvim
 ln -s ~/dotfiles/.vim ~/.vim
 ln -s ~/dotfiles/.vimrc ~/.nvimrc
