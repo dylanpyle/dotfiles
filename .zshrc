@@ -59,6 +59,7 @@ TRAPALRM() {
 
 export PATH=/opt/boxen/homebrew/bin:$PATH
 export PATH=/opt/boxen/heroku/bin:bin:$PATH
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
 alias center="sed  -e :a -e 's/^.\{1,'`expr $COLUMNS - 1`'\}$/ & /;ta'"
 
