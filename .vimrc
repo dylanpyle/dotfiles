@@ -138,6 +138,16 @@ augroup END
 " Hide NERDTree clutter
 let NERDTreeMinimalUI=1
 
+" Always show statusline
+set laststatus=2
+
+" Set up statusline
+set statusline=%f        " Path to current file
+set statusline+=%=       " Align right
+set statusline+=%c\,%l   " Current position in file
+set statusline+=\ \/\ %L
+set statusline+=\ %r%w%h " Any flags (readonly etc)
+
 
 " ~~~ Misc ~~~
 
