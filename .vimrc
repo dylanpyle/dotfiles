@@ -79,6 +79,12 @@ set shiftwidth=2
 " ... but round to the nearest 2
 set shiftround
 
+" Set text limit to 80 characters
+set tw=80
+
+" Enable automatic text wrapping
+set fo+=t
+
 
 " ~~~ Searching ~~~
 

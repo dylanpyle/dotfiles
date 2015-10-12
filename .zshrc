@@ -14,7 +14,7 @@ setopt nobeep
 setopt inc_append_history
 setopt share_history
 alias ls='ls -G'
-alias ll='ls -Gl'
+alias ll='ls -aGl'
 alias v='nvim'
 alias vim='nvim'
 alias g='git'
@@ -48,8 +48,24 @@ function precmd() {
 
 chpwd
 
-PROMPT='%{$fg[white]%}%~%{$fg[blue]%} Ϟ %{$reset_color%}'
-RPS1='%{$fg[blue]%}$(git rev-parse --abbrev-ref HEAD 2> /dev/null) %{$fg[black]%}%D{%H:%M}%{$reset_color%}'
+function branchstatus() {
+  if [[ $(git status --porcelain 2> /dev/null) != "" ]]; then
+    echo '●'
+  fi
+}
+
+function branchname() {
+  local NAME=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+  if [[ $NAME != '' ]]; then
+    echo $NAME' '
+  fi
+}
+
+local BRANCH='%{$fg[black]%}$(branchname)$(branchstatus)'
+local TIME='%{$fg[black]%}%D{%H:%M}'
+local CWD='%{$fg[white]%}%~'
+PROMPT=$TIME' '$CWD' '$BRANCH'
+%{$fg[blue]%}λ %{$reset_color%}'
 
 TMOUT=20
 
@@ -76,3 +92,9 @@ bindkey '^[[1;9C' forward-word
 bindkey '^[[1;9D' backward-word
 
 source ~/.shypsetup
+
+export NVM_DIR="/Users/dylan/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# Hacky nvm default. https://github.com/creationix/nvm/issues/860
+export PATH=/Users/dylan/.nvm/versions/node/v4.1.2/bin/:$PATH

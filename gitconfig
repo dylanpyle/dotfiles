@@ -1,13 +1,11 @@
 [user]
-  email = me@dylanpyle.com
+  email = dylan@shyp.com
   name = Dylan Pyle
-
 [alias]
-  branches = for-each-ref --sort=committerdate refs/heads/ --format='%(refname:short) %(committerdate:short) %(authorname)'
+  br = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:black)%(committerdate:short) %(color:blue)%(refname:short) %(color:black)%(authorname)' --count=20
   pending = log origin/master..origin/develop --merges --pretty=format:'%b (%an)'
   st = status
   ci = commit
-  br = branch
   co = checkout
   df = diff
   lg = log -p
