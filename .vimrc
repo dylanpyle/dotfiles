@@ -8,16 +8,6 @@ let mapleader=','
 " Allow ; in place of :
 noremap ; :
 
-" Disable arrow keys to cure muscle memory
-noremap  <Up> ""
-noremap! <Up> <Esc>
-noremap  <Down> ""
-noremap! <Down> <Esc>
-noremap  <Left> ""
-noremap! <Left> <Esc>
-noremap  <Right> ""
-noremap! <Right> <Esc>
-
 " Use Tab and Shift-Tab to switch buffers
 nnoremap <silent> <S-Tab> :bp<CR>
 nnoremap <silent> <Tab> :bn<CR>
@@ -36,7 +26,7 @@ map <Leader> <Plug>(easymotion-prefix)
 noremap <Space> :NERDTreeToggle<CR>
 
 " In visual mode, use space for sort
-vmap <Space> :sort<CR>
+vmap <Space> :sort i<CR>
 
 " In visual mode, use leader-space for EasyAlign
 vmap <Leader><Space> :EasyAlign\ <CR>
@@ -114,8 +104,7 @@ set number
 set cursorline
 
 " Show 80 character marker
-highlight OverLength ctermbg=lightgrey
-call matchadd('OverLength', '/\%81v.\+/')
+set cc=80
 
 " Syntax highlighting / ft detection
 syntax on
@@ -125,11 +114,9 @@ filetype plugin indent on
 set background=dark
 colorscheme hybrid
 
-" Define whitespace colors
-highlight ExtraWhitespace ctermbg=darkgreen
-
-" Show trailing whitespace
-call matchadd('ExtraWhitespace', '/\s\+$/')
+" Highlight any trailing whitespace
+highlight ExtraWhitespace ctermbg=61
+match ExtraWhitespace /\s\+$/
 
 " Show row/column positin
 set ruler
@@ -148,12 +135,14 @@ let NERDTreeMinimalUI=1
 set laststatus=2
 
 " Set up statusline
-set statusline=%f        " Path to current file
+set statusline=\ \»\ %f  " Path to current file
 set statusline+=%=       " Align right
 set statusline+=%c\,%l   " Current position in file
-set statusline+=\ \/\ %L
+set statusline+=\ \/\ %L " Slash
 set statusline+=\ %r%w%h " Any flags (readonly etc)
 
+" Remove splash screen
+set shortmess+=I
 
 " ~~~ Misc ~~~
 

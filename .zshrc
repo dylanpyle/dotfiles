@@ -13,6 +13,8 @@ setopt prompt_subst
 setopt nobeep
 setopt inc_append_history
 setopt share_history
+
+# Useful aliases
 alias ls='ls -G'
 alias ll='ls -aGl'
 alias v='nvim'
@@ -23,8 +25,30 @@ alias h='heroku'
 alias f='git grep -in'
 alias serve='python -m SimpleHTTPServer'
 
+alias POST='curl -sX POST -H "Content-Type: application/json" '
+alias GET='curl -sX GET '
+alias PUT='curl -sX PUT -H "Content-Type: application/json" '
+alias PATCH='curl -sX PATCH -H "Content-Type: application/json" '
+alias DELETE='curl -sX DELETE '
+
 function rb() {
   git rebase -i HEAD~$1
+}
+
+# Stage only all pending deletions
+function stagerm() {
+  git ls-files --deleted -z | xargs -0 git rm 
+}
+
+function pull() {
+  local branch=`git rev-parse --symbolic-full-name --abbrev-ref HEAD`
+  git pull origin $branch --rebase
+}
+alias sp='pull'
+
+function push() {
+  local branch=`git rev-parse --symbolic-full-name --abbrev-ref HEAD`
+  git push origin $branch
 }
 
 function tabname() {
@@ -35,6 +59,7 @@ function chpwd() {
   emulate -L zsh
   tabname `pwd | awk -F\/ '{print $(NF)}'`
 }
+chpwd
 
 # Print a newline before each prompt except the first one.
 export cntr=1
@@ -45,8 +70,6 @@ function precmd() {
   fi
   ((cntr = cntr + 1))
 }
-
-chpwd
 
 function branchstatus() {
   if [[ $(git status --porcelain 2> /dev/null) != "" ]]; then
@@ -64,8 +87,9 @@ function branchname() {
 local BRANCH='%{$fg[black]%}$(branchname)$(branchstatus)'
 local TIME='%{$fg[black]%}%D{%H:%M}'
 local CWD='%{$fg[white]%}%~'
+local COLOREDPROMPT='%(?.%{$fg[blue]%}.%{$fg[red]%})'
 PROMPT=$TIME' '$CWD' '$BRANCH'
-%{$fg[blue]%}λ %{$reset_color%}'
+'$COLOREDPROMPT'λ '%{$reset_color%}
 
 TMOUT=20
 
@@ -76,25 +100,19 @@ TRAPALRM() {
 export PATH=/opt/boxen/homebrew/bin:$PATH
 export PATH=/opt/boxen/heroku/bin:bin:$PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-
-alias center="sed  -e :a -e 's/^.\{1,'`expr $COLUMNS - 1`'\}$/ & /;ta'"
+export PATH=/usr/local/bin:$PATH
+export GOPATH=~/golang
 
 export EDITOR='nvim'
-
-alias POST='curl -sX POST -H "Content-Type: application/json" '
-alias GET='curl -sX GET '
-alias PUT='curl -sX PUT -H "Content-Type: application/json" '
-alias PATCH='curl -sX PATCH -H "Content-Type: application/json" '
-alias DELETE='curl -sX DELETE '
 
 bindkey -e
 bindkey '^[[1;9C' forward-word
 bindkey '^[[1;9D' backward-word
 
-source ~/.shypsetup
+source ~/.shypsetup 2> /dev/null
 
 export NVM_DIR="/Users/dylan/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Hacky nvm default. https://github.com/creationix/nvm/issues/860
-export PATH=/Users/dylan/.nvm/versions/node/v4.1.2/bin/:$PATH
+export PATH=/Users/dylan/.nvm/versions/node/v5.1.0/bin/:$PATH

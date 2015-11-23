@@ -9,16 +9,19 @@
   co = checkout
   df = diff
   lg = log -p
-  sp = smart-pull
   sl = smart-log
   rb = rebase
   d = difftool
-  huh = diff HEAD~1
+  huh = diff --stat HEAD~1
 [push]
-  default = simple
+  default = upstream
 [core]
   excludesfile = /Users/dylan/.gitignore_global
 [diff]
   tool = vimdiff
 [difftool]
   prompt = false
+[pull]
+  default = current
+[branch]
+  autosetuprebase = always
