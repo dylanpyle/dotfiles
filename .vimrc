@@ -114,6 +114,11 @@ filetype plugin indent on
 set background=dark
 colorscheme hybrid
 
+" Update tab bar colors
+hi TabLineFill ctermfg=233 ctermbg=233
+hi TabLine ctermfg=Black ctermbg=Black
+hi TabLineSel ctermfg=Blue ctermbg=Black
+
 " Highlight any trailing whitespace
 highlight ExtraWhitespace ctermbg=61
 match ExtraWhitespace /\s\+$/
@@ -143,6 +148,7 @@ set statusline+=\ %r%w%h " Any flags (readonly etc)
 
 " Remove splash screen
 set shortmess+=I
+
 
 " ~~~ Misc ~~~
 

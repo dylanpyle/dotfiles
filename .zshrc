@@ -16,7 +16,7 @@ setopt share_history
 
 # Useful aliases
 alias ls='ls -G'
-alias ll='ls -aGl'
+alias ll='ls -aGlh'
 alias v='nvim'
 alias vim='nvim'
 alias g='git'
