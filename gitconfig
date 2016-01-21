@@ -6,6 +6,7 @@
   pending = log origin/master..origin/develop --merges --pretty=format:'%b (%an)'
   st = status
   ci = commit
+  c = checkout
   co = checkout
   df = diff
   lg = log -p

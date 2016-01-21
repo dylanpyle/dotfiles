@@ -115,4 +115,4 @@ export NVM_DIR="/Users/dylan/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Hacky nvm default. https://github.com/creationix/nvm/issues/860
-export PATH=/Users/dylan/.nvm/versions/node/v5.1.0/bin/:$PATH
+export PATH=/Users/dylan/.nvm/versions/node/v5.4.0/bin/:$PATH
