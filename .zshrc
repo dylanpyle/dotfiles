@@ -40,9 +40,13 @@ function stagerm() {
   git ls-files --deleted -z | xargs -0 git rm 
 }
 
+function miracle() {
+  git fsck --unreachable | grep commit | cut -d ' ' -f3 | xargs git show
+}
+
 function pull() {
   local branch=`git rev-parse --symbolic-full-name --abbrev-ref HEAD`
-  git pull origin $branch --rebase
+  git pull origin $branch
 }
 alias sp='pull'
 
@@ -101,6 +105,7 @@ export PATH=/opt/boxen/homebrew/bin:$PATH
 export PATH=/opt/boxen/heroku/bin:bin:$PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
+export PATH=./bin:$PATH
 export GOPATH=~/golang
 
 export EDITOR='nvim'
@@ -111,8 +116,4 @@ bindkey '^[[1;9D' backward-word
 
 source ~/.shypsetup 2> /dev/null
 
-export NVM_DIR="/Users/dylan/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-# Hacky nvm default. https://github.com/creationix/nvm/issues/860
-export PATH=/Users/dylan/.nvm/versions/node/v5.4.0/bin/:$PATH
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).

@@ -16,6 +16,9 @@ nnoremap <silent> <Tab> :bn<CR>
 vmap <Leader>y "*y<CR>
 nnoremap <Leader>p "*p<CR><Esc>
 
+" cp to copy file path to system clipboard
+nmap cp :let @* = expand("%")<CR>
+
 " <Leader>q for compiling coffeescript inline
 vmap <Leader>q :!coffee -bcsp --no-header<CR>
 
@@ -23,7 +26,7 @@ vmap <Leader>q :!coffee -bcsp --no-header<CR>
 map <Leader> <Plug>(easymotion-prefix)
 
 " Use <Space> to toggle NERDTree
-noremap <Space> :NERDTreeToggle<CR>
+noremap <Space> :NERDTreeTabsToggle<CR>
 
 " In visual mode, use space for sort
 vmap <Space> :sort i<CR>
@@ -43,6 +46,9 @@ let g:ctrlp_cmd = 'CtrlPLastMode'
 
 " Add fuzzy line extension
 let g:ctrlp_extensions = ['line']
+
+nnoremap = :SyntasticCheck<CR>
+
 
 " Allow <esc><esc> to escape terminal buffers
 " (neovim-specific; disabled for right now since I use this file as my .vimrc
@@ -136,6 +142,9 @@ augroup END
 " Hide NERDTree clutter
 let NERDTreeMinimalUI=1
 
+" Don't quit NERDTree when we open a tab
+let NERDTreeQuitOnOpen = 0
+
 " Always show statusline
 set laststatus=2
 
@@ -149,6 +158,17 @@ set statusline+=\ %r%w%h " Any flags (readonly etc)
 " Remove splash screen
 set shortmess+=I
 
+" Set up Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_mode_map = { 'mode': 'passive' }
 
 " ~~~ Misc ~~~
 
