@@ -44,15 +44,26 @@ function miracle() {
   git fsck --unreachable | grep commit | cut -d ' ' -f3 | xargs git show
 }
 
-function pull() {
-  local branch=`git rev-parse --symbolic-full-name --abbrev-ref HEAD`
-  git pull origin $branch
+function gpull() {
+  local BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
+  git pull origin $BRANCH
 }
-alias sp='pull'
+alias gp='pull'
 
-function push() {
-  local branch=`git rev-parse --symbolic-full-name --abbrev-ref HEAD`
-  git push origin $branch
+function gpush() {
+  local BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
+  git push origin $BRANCH
+}
+
+function gup() {
+  git co develop
+  gpull
+  git co -
+  git merge develop
+}
+
+function gpr() {
+  hub pull-request -b develop
 }
 
 function tabname() {
@@ -105,7 +116,7 @@ export PATH=/opt/boxen/homebrew/bin:$PATH
 export PATH=/opt/boxen/heroku/bin:bin:$PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
-export PATH=./bin:$PATH
+export PATH=./bin:~/bin:$PATH
 export GOPATH=~/golang
 
 export EDITOR='nvim'
