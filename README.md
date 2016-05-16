@@ -13,3 +13,4 @@ Then:
 
 - Update iTerm2 color scheme (Preferences > Profiles > Colors > Load Presets)
 - Update iTerm2 emulation (Preferences > Profiles > Terminal Type > Report Terminal Type > xterm-256color)
+- `$ gpg --import private.key`
