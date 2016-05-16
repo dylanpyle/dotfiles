@@ -1,7 +1,7 @@
 [user]
   email = dylan@shyp.com
   name = Dylan Pyle
-  signingkey = 0BAF8266
+  signingkey = 6EEAC145
 [alias]
   br = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:black)%(committerdate:short) %(color:blue)%(refname:short) %(color:black)%(authorname)' --count=20
   pending = log origin/master..origin/develop --merges --pretty=format:'%b (%an)'
