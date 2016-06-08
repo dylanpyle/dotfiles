@@ -37,30 +37,32 @@ function rb() {
 
 # Stage only all pending deletions
 function stagerm() {
-  git ls-files --deleted -z | xargs -0 git rm 
+  git ls-files --deleted -z | xargs -0 git rm
 }
 
 function miracle() {
   git fsck --unreachable | grep commit | cut -d ' ' -f3 | xargs git show
 }
 
-function gpull() {
-  local BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
-  git pull origin $BRANCH
-}
-alias gp='pull'
+# Create a new branch off the latest develop changes
+gnb() (
+  set -e
+  git co develop
+  git pull
+  git co -b $1
+  git push -u
+)
 
-function gpush() {
-  local BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
-  git push origin $BRANCH
-}
+alias gpull='git pull'
+alias gpush='git push'
 
-function gup() {
+gup() (
+  set -e
   git co develop
   gpull
   git co -
   git merge develop
-}
+)
 
 function gpr() {
   hub pull-request -b develop
