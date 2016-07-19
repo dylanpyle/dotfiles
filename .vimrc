@@ -47,7 +47,11 @@ let g:ctrlp_cmd = 'CtrlPLastMode'
 " Add fuzzy line extension
 let g:ctrlp_extensions = ['line']
 
+" Map equals key to Syntastic
 nnoremap = :SyntasticCheck<CR>
+
+" Allow :NF as an alias for NERDTreeFind
+command NF NERDTreeFind
 
 
 " Allow <esc><esc> to escape terminal buffers

@@ -54,6 +54,7 @@ gnb() (
 )
 
 alias gpull='git pull'
+alias sp='git pull'
 alias gpush='git push'
 
 gup() (
@@ -130,3 +131,10 @@ bindkey '^[[1;9D' backward-word
 source ~/.shypsetup 2> /dev/null
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+
+if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
+  source ~/.gnupg/.gpg-agent-info
+  export GPG_AGENT_INFO
+else
+  eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
+fi

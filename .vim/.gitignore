@@ -2,3 +2,4 @@ view/
 tmp/
 backup/
 .netrwhist
+init.vim

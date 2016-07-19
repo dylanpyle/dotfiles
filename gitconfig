@@ -16,7 +16,7 @@
   d = difftool
   huh = diff --stat HEAD~1
 [push]
-  default = upstream
+	default = current
 [core]
   excludesfile = /Users/dylan/.gitignore_global
 [diff]
@@ -24,9 +24,7 @@
 [difftool]
   prompt = false
 [pull]
-  default = current
-[branch]
-  autosetuprebase = always
+	default = current
 [url "git@github.com:"]
   insteadOf = "https://github.com/"
 [commit]
