@@ -66,7 +66,7 @@ gup() (
 )
 
 function gpr() {
-  hub pull-request -b develop
+  hub pull-request -b develop -o
 }
 
 function tabname() {
