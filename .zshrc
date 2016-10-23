@@ -44,29 +44,28 @@ function miracle() {
   git fsck --unreachable | grep commit | cut -d ' ' -f3 | xargs git show
 }
 
-# Create a new branch off the latest develop changes
+# Create a new branch off the latest master changes
 gnb() (
   set -e
-  git co develop
+  git co master
   git pull
   git co -b $1
-  git push -u
 )
 
 alias gpull='git pull'
 alias sp='git pull'
-alias gpush='git push'
+alias gpush='git push -u'
 
 gup() (
   set -e
-  git co develop
+  git co master
   gpull
   git co -
-  git merge develop
+  git merge master
 )
 
 function gpr() {
-  hub pull-request -b develop -o
+  hub pull-request -b master -o
 }
 
 function tabname() {
@@ -127,8 +126,6 @@ export EDITOR='nvim'
 bindkey -e
 bindkey '^[[1;9C' forward-word
 bindkey '^[[1;9D' backward-word
-
-source ~/.shypsetup 2> /dev/null
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 

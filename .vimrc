@@ -34,10 +34,6 @@ vmap <Space> :sort i<CR>
 " In visual mode, use leader-space for EasyAlign
 vmap <Leader><Space> :EasyAlign\ <CR>
 
-" Leader-x to run the current file using the `tt` test runner.
-" Note: This is Shyp-specific and may not be useful to you.
-noremap <Leader>x :!tt %<CR>
-
 " Remap CtrlP key to backslash
 let g:ctrlp_map = '<Bslash>'
 
