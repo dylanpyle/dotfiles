@@ -15,8 +15,15 @@ setopt inc_append_history
 setopt share_history
 
 # Useful aliases
-alias ls='ls -G'
-alias ll='ls -aGlh'
+
+if [[ $(uname) == 'Darwin' ]]; then
+  alias ls='ls -G'
+  alias ll='ls -aGlh'
+else
+  alias ls='ls --color'
+  alias ll='ls --color -alh'
+fi
+
 alias v='nvim'
 alias vim='nvim'
 alias g='git'
