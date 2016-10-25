@@ -101,12 +101,13 @@ function branchname() {
   fi
 }
 
-local BRANCH='%{$fg[black]%}$(branchname)$(branchstatus)'
-local TIME='%{$fg[black]%}%D{%H:%M}'
 local CWD='%{$fg[white]%}%~'
+local BRANCH='%{$fg[black]%}$(branchname)$(branchstatus)'
+local CURRENTHOST='%{$fg[black]%}$HOST'
+local TIME='%{$fg[black]%}%D{%H:%M}'
 local COLOREDPROMPT='%(?.%{$fg[blue]%}.%{$fg[red]%})'
-PROMPT=$TIME' '$CWD' '$BRANCH'
-'$COLOREDPROMPT'λ '%{$reset_color%}
+PROMPT=$TIME' '$CURRENTHOST' '$CWD' '$BRANCH'
+'$COLOREDPROMPT'▲ '%{$reset_color%}
 
 TMOUT=20
 
