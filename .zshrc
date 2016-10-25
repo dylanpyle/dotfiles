@@ -31,6 +31,7 @@ alias o='open'
 alias h='heroku'
 alias f='git grep -in'
 alias serve='python -m SimpleHTTPServer'
+alias tmux='TERM=screen-256color-bce tmux'
 
 alias POST='curl -sX POST -H "Content-Type: application/json" '
 alias GET='curl -sX GET '
@@ -143,3 +144,4 @@ if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
 else
   eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
 fi
+export PATH=~/.themekit:$PATH
