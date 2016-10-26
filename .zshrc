@@ -111,7 +111,7 @@ function branchname() {
 
 local CWD='%{$fg[white]%}%~'
 local BRANCH='%{$fg[black]%}$(branchname)$(branchstatus)'
-local CURRENTHOST='%{$fg[black]%}$HOST |'
+local CURRENTHOST='%{$fg[black]%}$HOST:'
 local COLOREDPROMPT='%(?.%{$fg[blue]%}.%{$fg[red]%})'
 PROMPT=$CURRENTHOST' '$CWD' '$BRANCH'
 '$COLOREDPROMPT'▲ '%{$reset_color%}
