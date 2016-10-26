@@ -116,12 +116,6 @@ local COLOREDPROMPT='%(?.%{$fg[blue]%}.%{$fg[red]%})'
 PROMPT=$CURRENTHOST' '$CWD' '$BRANCH'
 '$COLOREDPROMPT'▲ '%{$reset_color%}
 
-TMOUT=20
-
-TRAPALRM() {
-  zle reset-prompt
-}
-
 export PATH=/opt/boxen/homebrew/bin:$PATH
 export PATH=/opt/boxen/heroku/bin:bin:$PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
