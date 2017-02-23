@@ -119,6 +119,9 @@ filetype plugin indent on
 " Allow JSX highlighting in *.js
 let g:jsx_ext_required = 0
 
+" Allow JSDoc highlighting
+let g:javascript_plugin_jsdoc = 1
+
 " Set current color scheme
 set background=dark
 colorscheme hybrid

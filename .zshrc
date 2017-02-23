@@ -87,7 +87,7 @@ function chpwd() {
 chpwd
 
 # Print a newline before each prompt except the first one.
-export cntr=1
+cntr=1
 
 function precmd() {
   if [[ $cntr -gt 1 ]]; then
@@ -121,6 +121,8 @@ export PATH=/opt/boxen/heroku/bin:bin:$PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=./bin:~/bin:$PATH
+export PATH="$HOME/.fastlane/bin:$PATH"
+
 export GOPATH=~/golang
 
 export EDITOR='nvim'
@@ -137,4 +139,3 @@ if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
 else
   eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
 fi
-export PATH=~/.themekit:$PATH
