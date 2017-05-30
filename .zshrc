@@ -32,6 +32,7 @@ alias h='heroku'
 alias f='git grep -in'
 alias serve='python -m SimpleHTTPServer'
 alias tmux='TERM=screen-256color-bce tmux'
+alias uuid='node -e "console.log(require(\"node-uuid\").v4())"'
 
 alias POST='curl -sX POST -H "Content-Type: application/json" '
 alias GET='curl -sX GET '
@@ -116,14 +117,15 @@ local COLOREDPROMPT='%(?.%{$fg[blue]%}.%{$fg[red]%})'
 PROMPT=$CURRENTHOST' '$CWD' '$BRANCH'
 '$COLOREDPROMPT'▲ '%{$reset_color%}
 
+export GOPATH=~/golang
+
 export PATH=/opt/boxen/homebrew/bin:$PATH
 export PATH=/opt/boxen/heroku/bin:bin:$PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=./bin:~/bin:$PATH
 export PATH="$HOME/.fastlane/bin:$PATH"
-
-export GOPATH=~/golang
+export PATH="$GOPATH/bin:$PATH"
 
 export EDITOR='nvim'
 
@@ -139,3 +141,5 @@ if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
 else
   eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

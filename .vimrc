@@ -75,6 +75,9 @@ set shiftwidth=2
 " ... but round to the nearest 2
 set shiftround
 
+" Use tabs for golang
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+
 " Set text limit to 80 characters
 set tw=80
 
@@ -174,14 +177,8 @@ let g:syntastic_mode_map = { 'mode': 'passive' }
 
 " ~~~ Misc ~~~
 
-" Enable per-directory .vimrc files
-set exrc
-
-" Disable unsafe commands in local .vimrc files
-set secure
-
-" Allow mouse
-set mouse=a
+" Disallow mouse
+set mouse-=a
 
 " Fix strange backspace behavior
 set backspace=2
