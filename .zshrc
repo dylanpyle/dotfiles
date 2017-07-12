@@ -24,8 +24,7 @@ else
   alias ll='ls --color -alh'
 fi
 
-alias v='nvim'
-alias vim='nvim'
+alias v='vim'
 alias g='git'
 alias o='open'
 alias h='heroku'
@@ -62,9 +61,9 @@ gnb() (
 )
 
 alias gpull='git pull'
-alias sp='git pull'
 alias gpush='git push -u'
 
+# Merge in latest master changes
 gup() (
   set -e
   git co master
@@ -74,6 +73,7 @@ gup() (
 )
 
 function gpr() {
+  make lint
   hub pull-request -b master -o
 }
 

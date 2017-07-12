@@ -138,7 +138,7 @@ hi TabLineSel ctermfg=Blue ctermbg=Black
 highlight ExtraWhitespace ctermbg=61
 match ExtraWhitespace /\s\+$/
 
-" Show row/column positin
+" Show row/column position
 set ruler
 
 " Only show cursorline in active window
@@ -173,12 +173,14 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_typescript_checkers = ['tsuquyomi']
 let g:syntastic_mode_map = { 'mode': 'passive' }
+let g:tsuquyomi_disable_quickfix = 1
 
 " ~~~ Misc ~~~
 
-" Disallow mouse
-set mouse-=a
+" Mouse
+set mouse=a
 
 " Fix strange backspace behavior
 set backspace=2
