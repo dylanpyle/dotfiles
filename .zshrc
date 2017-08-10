@@ -32,6 +32,7 @@ alias f='git grep -in'
 alias serve='python -m SimpleHTTPServer'
 alias tmux='TERM=screen-256color-bce tmux'
 alias uuid='node -e "console.log(require(\"node-uuid\").v4())"'
+alias whereami='pwd'
 
 alias POST='curl -sX POST -H "Content-Type: application/json" '
 alias GET='curl -sX GET '
