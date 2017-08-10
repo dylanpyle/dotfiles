@@ -11,6 +11,5 @@ $ ./install.sh
 
 Then:
 
-- Update iTerm2 color scheme (Preferences > Profiles > Colors > Load Presets)
-- Update iTerm2 emulation (Preferences > Profiles > Terminal Type > Report Terminal Type > xterm-256color)
+- Figure out how to import `iterm-profile.json` into iTerm2
 - `$ gpg --import private.key`
