@@ -1530,7 +1530,7 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>90 162 592 584 0 0 1366 746 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 270 730 476 0 0 1366 746 </string>
+	<string>683 27 676 718 0 0 1366 746 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>221 60 730 476 0 0 1366 746 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -2708,7 +2708,7 @@
 												<real>0.0</real>
 											</dict>
 											<key>Cursor Type</key>
-											<integer>2</integer>
+											<integer>0</integer>
 											<key>Custom Command</key>
 											<string>Yes</string>
 											<key>Custom Directory</key>
