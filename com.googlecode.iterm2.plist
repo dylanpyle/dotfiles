@@ -1526,11 +1526,11 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>465 268 606 469 0 0 1920 1058 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>270 85 796 473 0 0 1366 746 </string>
+	<string>162 200 918 485 0 0 1366 746 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>90 162 592 584 0 0 1366 746 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>683 27 676 718 0 0 1366 746 </string>
+	<string>683 17 676 728 0 0 1366 746 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>221 60 730 476 0 0 1366 746 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1769,7 +1769,7 @@
 				<real>1</real>
 			</dict>
 			<key>Cursor Type</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Custom Command</key>
 			<string>Yes</string>
 			<key>Custom Directory</key>
@@ -2334,7 +2334,7 @@
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
 	<key>NoSyncSuppressAnnyoingBellOffer</key>
@@ -2708,7 +2708,7 @@
 												<real>0.0</real>
 											</dict>
 											<key>Cursor Type</key>
-											<integer>0</integer>
+											<integer>2</integer>
 											<key>Custom Command</key>
 											<string>Yes</string>
 											<key>Custom Directory</key>
