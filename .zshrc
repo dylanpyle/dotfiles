@@ -1,8 +1,8 @@
 autoload -U colors && colors
 autoload -U compinit && compinit
 
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 HISTFILE=~/.history
 
 setopt nocorrectall # Don't correct *everything*
@@ -34,22 +34,22 @@ alias tmux='TERM=screen-256color-bce tmux'
 alias uuid='node -e "console.log(require(\"node-uuid\").v4())"'
 alias whereami='pwd'
 
-alias POST='curl -sX POST -H "Content-Type: application/json" '
-alias GET='curl -sX GET '
-alias PUT='curl -sX PUT -H "Content-Type: application/json" '
-alias PATCH='curl -sX PATCH -H "Content-Type: application/json" '
-alias DELETE='curl -sX DELETE '
+alias cpost='curl -sX POST -H "Content-Type: application/json" '
+alias cget='curl -sX GET '
+alias cput='curl -sX PUT -H "Content-Type: application/json" '
+alias cpatch='curl -sX PATCH -H "Content-Type: application/json" '
+alias cdelete='curl -sX DELETE '
 
-function rb() {
+grb() {
   git rebase -i HEAD~$1
 }
 
 # Stage only all pending deletions
-function stagerm() {
+stagerm() {
   git ls-files --deleted -z | xargs -0 git rm
 }
 
-function miracle() {
+miracle() {
   git fsck --unreachable | grep commit | cut -d ' ' -f3 | xargs git show
 }
 
@@ -73,50 +73,51 @@ gup() (
   git merge master
 )
 
-function gpr() {
-  make lint
+gpr() {
+  gpush
   hub pull-request -b master -o
 }
 
-function tabname() {
+tabname() {
   echo -ne "\033]0;"$@"\007"
 }
 
-function chpwd() {
+chpwd() {
   emulate -L zsh
   tabname `pwd | awk -F\/ '{print $(NF)}'`
 }
+
 chpwd
 
 # Print a newline before each prompt except the first one.
 cntr=1
 
-function precmd() {
+precmd() {
   if [[ $cntr -gt 1 ]]; then
     echo '';
   fi
   ((cntr = cntr + 1))
 }
 
-function branchstatus() {
+get_branch_status() {
   if [[ $(git status --porcelain 2> /dev/null) != "" ]]; then
     echo '●'
   fi
 }
 
-function branchname() {
-  local NAME=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
-  if [[ $NAME != '' ]]; then
-    echo $NAME' '
+get_branch_name() {
+  local name=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+  if [[ $name != '' ]]; then
+    echo $name' '
   fi
 }
 
-local CWD='%{$fg[white]%}%~'
-local BRANCH='%{$fg[black]%}$(branchname)$(branchstatus)'
-local CURRENTHOST='%{$fg[black]%}$HOST:'
-local COLOREDPROMPT='%(?.%{$fg[blue]%}.%{$fg[red]%})'
-PROMPT=$CURRENTHOST' '$CWD' '$BRANCH'
-'$COLOREDPROMPT'▲ '%{$reset_color%}
+local cwd='%{$fg[white]%}%~'
+local current_branch='%{$fg[black]%}$(get_branch_name)$(get_branch_status)'
+local current_host='%{$fg[black]%}$HOST:'
+local prompt_color='%(?.%{$fg[blue]%}.%{$fg[red]%})'
+PROMPT=$current_host' '$cwd' '$current_branch'
+'$prompt_color'▲ '%{$reset_color%}
 
 export GOPATH=~/golang
 

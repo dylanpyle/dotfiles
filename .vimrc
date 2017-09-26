@@ -184,3 +184,9 @@ set mouse=a
 
 " Fix strange backspace behavior
 set backspace=2
+
+" MacVim only - hide scrollbars
+set guioptions=
+
+" MacVim - set GUI font
+set guifont=Inconsolata\ Regular:h17

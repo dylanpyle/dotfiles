@@ -17,7 +17,7 @@
 [push]
 	default = current
 [core]
-  excludesfile = /Users/dylan/.gitignore_global
+	excludesfile = /Users/dylan/.gitignore_global
 [diff]
   tool = vimdiff
 [difftool]
