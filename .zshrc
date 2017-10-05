@@ -39,6 +39,7 @@ alias cget='curl -sX GET '
 alias cput='curl -sX PUT -H "Content-Type: application/json" '
 alias cpatch='curl -sX PATCH -H "Content-Type: application/json" '
 alias cdelete='curl -sX DELETE '
+alias note='(echo && date && cat) >> ~/notes.txt'
 
 grb() {
   git rebase -i HEAD~$1
@@ -137,11 +138,6 @@ bindkey '^[[1;9D' backward-word
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
-if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
-  source ~/.gnupg/.gpg-agent-info
-  export GPG_AGENT_INFO
-else
-  eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
-fi
+export GPG_TTY=$(tty)
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

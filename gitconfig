@@ -1,6 +1,7 @@
 [user]
   email = me@dylanpyle.com
   name = Dylan Pyle
+  signingkey = 6942FD6D0BAF8266
 [alias]
   br = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:black)%(committerdate:short) %(color:blue)%(refname:short) %(color:black)%(authorname)' --count=20
   pending = log origin/master..origin/develop --merges --pretty=format:'%b (%an)'
@@ -14,13 +15,16 @@
   rb = rebase
   d = difftool
   huh = diff --stat HEAD~1
+  db = branch -D
+[commit]
+  gpgsign = true
 [push]
-	default = current
+  default = current
 [core]
-	excludesfile = /Users/dylan/.gitignore_global
+  excludesfile = /Users/dylan/.gitignore_global
 [diff]
   tool = vimdiff
 [difftool]
   prompt = false
 [pull]
-	default = current
+  default = current
