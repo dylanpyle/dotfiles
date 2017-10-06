@@ -26,6 +26,7 @@ fi
 
 alias v='vim'
 alias g='git'
+alias m='make'
 alias o='open'
 alias h='heroku'
 alias f='git grep -in'
