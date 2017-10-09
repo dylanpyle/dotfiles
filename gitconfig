@@ -1,30 +1,30 @@
 [user]
-  email = me@dylanpyle.com
-  name = Dylan Pyle
-  signingkey = 32B1B367
+	email = me@dylanpyle.com
+	name = Dylan Pyle
+	signingkey = 11111111
 [alias]
-  br = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:black)%(committerdate:short) %(color:blue)%(refname:short) %(color:black)%(authorname)' --count=20
-  pending = log origin/master..origin/develop --merges --pretty=format:'%b (%an)'
-  st = status
-  ci = commit
-  c = checkout
-  co = checkout
-  df = diff
-  lg = log -p
-  sl = smart-log
-  rb = rebase
-  d = difftool
-  huh = diff --stat HEAD~1
-  db = branch -D
+	br = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:black)%(committerdate:short) %(color:blue)%(refname:short) %(color:black)%(authorname)' --count=20
+	pending = log origin/master..origin/develop --merges --pretty=format:'%b (%an)'
+	st = status
+	ci = commit
+	c = checkout
+	co = checkout
+	df = diff
+	lg = log -p
+	sl = smart-log
+	rb = rebase
+	d = difftool
+	huh = diff --stat HEAD~1
+	db = branch -D
 [commit]
-  gpgsign = true
+	gpgsign = true
 [push]
-  default = current
+	default = current
 [core]
-  excludesfile = /Users/dylan/.gitignore_global
+	excludesfile = /Users/dylan/.gitignore_global
 [diff]
-  tool = vimdiff
+	tool = vimdiff
 [difftool]
-  prompt = false
+	prompt = false
 [pull]
-  default = current
+	default = current
