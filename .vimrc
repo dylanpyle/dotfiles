@@ -19,9 +19,6 @@ nnoremap <Leader>p "*p<CR><Esc>
 " cp to copy file path to system clipboard
 nmap cp :let @* = expand("%")<CR>
 
-" <Leader>q for compiling coffeescript inline
-vmap <Leader>q :!coffee -bcsp --no-header<CR>
-
 " Back to single-prefix EasyMotion movements
 map <Leader> <Plug>(easymotion-prefix)
 
