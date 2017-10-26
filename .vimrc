@@ -37,7 +37,10 @@ let g:ctrlp_cmd = 'CtrlPLastMode'
 " Add fuzzy line extension
 let g:ctrlp_extensions = ['line']
 
-" Small useful aliases for frequently-typed :commands
+" Map equals key to Syntastic
+nnoremap = :SyntasticCheck<CR>
+
+" Allow :NF as an alias for NERDTreeFind
 command NF NERDTreeFind
 
 
@@ -158,8 +161,15 @@ set statusline+=\ %r%w%h " Any flags (readonly etc)
 " Remove splash screen
 set shortmess+=I
 
-" Enable Ale completion
-let g:ale_completion_enabled = 1
+" Set up Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_typescript_checkers = ['tsuquyomi', 'tslint']
+let g:syntastic_mode_map = { 'mode': 'passive' }
+let g:tsuquyomi_disable_quickfix = 1
 
 " ~~~ Misc ~~~
 

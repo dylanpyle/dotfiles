@@ -114,10 +114,6 @@ get_branch_name() {
   fi
 }
 
-replace() {
-  git grep -l $1 | xargs sed -i '' -e "s/$1/$2/g"
-}
-
 local cwd='%{$fg[white]%}%~'
 local current_branch='%{$fg[black]%}$(get_branch_name)$(get_branch_status)'
 local current_host='%{$fg[black]%}$HOST:'
