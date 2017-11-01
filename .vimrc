@@ -8,9 +8,8 @@ let mapleader=','
 " Allow ; in place of :
 noremap ; :
 
-" Use Tab and Shift-Tab to switch buffers
-nnoremap <silent> <S-Tab> :bp<CR>
-nnoremap <silent> <Tab> :bn<CR>
+" Use shift-tab for c-x c-o autocomplete
+inoremap <S-Tab> <C-x><C-o>
 
 " <Leader>y and <Leader>p for copy/paste to system clipboard
 vmap <Leader>y "*y<CR>
@@ -174,7 +173,7 @@ let g:tsuquyomi_disable_quickfix = 1
 " ~~~ Misc ~~~
 
 " Mouse
-set mouse=a
+set mouse=n
 
 " Fix strange backspace behavior
 set backspace=2
