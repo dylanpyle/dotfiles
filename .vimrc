@@ -39,6 +39,9 @@ let g:ctrlp_extensions = ['line']
 " Map equals key to Syntastic
 nnoremap = :SyntasticCheck<CR>
 
+" Allow :SR as an alias for SyntasticReset
+command SR SyntasticReset
+
 " Allow :NF as an alias for NERDTreeFind
 command NF NERDTreeFind
 
