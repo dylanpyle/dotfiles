@@ -34,13 +34,14 @@ alias serve='python -m SimpleHTTPServer'
 alias tmux='TERM=screen-256color-bce tmux'
 alias uuid='node -e "console.log(require(\"node-uuid\").v4())"'
 alias whereami='pwd'
+alias note='(echo && date && cat) >> ~/notes.txt'
+alias bell="echo -ne '\007'"
 
 alias cpost='curl -sX POST -H "Content-Type: application/json" '
 alias cget='curl -sX GET '
 alias cput='curl -sX PUT -H "Content-Type: application/json" '
 alias cpatch='curl -sX PATCH -H "Content-Type: application/json" '
 alias cdelete='curl -sX DELETE '
-alias note='(echo && date && cat) >> ~/notes.txt'
 
 grb() {
   git rebase -i HEAD~$1
@@ -63,7 +64,7 @@ gnb() (
   git co -b $1
 )
 
-alias gpull='git pull'
+alias gpull='git pull --ff-only'
 alias gpush='git push -u'
 
 # Merge in latest master changes
