@@ -22,7 +22,7 @@ nmap cp :let @* = expand("%")<CR>
 map <Leader> <Plug>(easymotion-prefix)
 
 " Use <Space> to toggle NERDTree
-noremap <Space> :NERDTreeTabsToggle<CR>
+noremap <Space> :NERDTreeToggle<CR>
 
 " In visual mode, use space for sort
 vmap <Space> :sort i<CR>
@@ -44,6 +44,7 @@ command SR SyntasticReset
 
 " Allow :NF as an alias for NERDTreeFind
 command NF NERDTreeFind
+map <Leader>o :NERDTreeFind<CR>
 
 
 " Allow <esc><esc> to escape terminal buffers
