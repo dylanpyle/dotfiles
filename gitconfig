@@ -3,8 +3,9 @@
 	name = Dylan Pyle
 	signingkey = 11111111
 [alias]
+	dad = add
 	br = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:black)%(committerdate:short) %(color:blue)%(refname:short) %(color:black)%(authorname)' --count=20
-	pending = log origin/master..origin/develop --merges --pretty=format:'%b (%an)'
+	pending = log origin/production..origin/master --merges --pretty=format:'%b (%an)'
 	st = status
 	ci = commit
 	c = checkout
