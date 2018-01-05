@@ -36,6 +36,7 @@ alias uuid='node -e "console.log(require(\"node-uuid\").v4())"'
 alias whereami='pwd'
 alias note='(echo && date && cat) >> ~/notes.txt'
 alias bell="echo -ne '\007'"
+alias pg='pgcli --less-chatty'
 
 alias cpost='curl -sX POST -H "Content-Type: application/json" '
 alias cget='curl -sX GET '
