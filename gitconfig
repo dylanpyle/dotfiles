@@ -17,6 +17,7 @@
 	d = difftool
 	huh = diff --stat HEAD~1
 	db = branch -D
+	versions = tag --sort=-v:refname
 [commit]
 	gpgsign = true
 [push]
