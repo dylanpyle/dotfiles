@@ -127,21 +127,17 @@ local prompt_color='%(?.%{$fg[blue]%}.%{$fg[red]%})'
 PROMPT=$current_host' '$cwd' '$current_branch'
 '$prompt_color'▲ '%{$reset_color%}
 
-export GOPATH=~/golang
-
-export PATH=/opt/boxen/homebrew/bin:$PATH
-export PATH=/opt/boxen/heroku/bin:bin:$PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=./bin:~/bin:$PATH
+export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH="$HOME/.fastlane/bin:$PATH"
-export PATH="$GOPATH/bin:$PATH"
 
-export EDITOR='nvim'
+export EDITOR='vim'
 
 bindkey -e
-bindkey '^[[1;9C' forward-word
-bindkey '^[[1;9D' backward-word
+bindkey '[C' forward-word
+bindkey '[D' backward-word
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
