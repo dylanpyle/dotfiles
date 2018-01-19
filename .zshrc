@@ -125,13 +125,14 @@ local current_branch='%{$fg[black]%}$(get_branch_name)$(get_branch_status)'
 local current_host='%{$fg[black]%}$HOST:'
 local prompt_color='%(?.%{$fg[blue]%}.%{$fg[red]%})'
 PROMPT=$current_host' '$cwd' '$current_branch'
-'$prompt_color'▲ '%{$reset_color%}
+'$prompt_color'▸ '%{$reset_color%}
 
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=./bin:~/bin:$PATH
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH="$HOME/.fastlane/bin:$PATH"
+export PATH=~/Library/Python/3.6/bin:$PATH
 
 export EDITOR='vim'
 
