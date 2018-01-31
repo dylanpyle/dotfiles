@@ -35,13 +35,15 @@ let g:tsuquyomi_tsserver_debug =
 let g:tsuquyomi_nodejs_path = 
       \ get(g:, 'tsuquyomi_nodejs_path', 'node')
 let g:tsuquyomi_waittime_after_open = 
-      \ get(g:, 'tsuquyomi_waittime_after_open', 0.01)
+      \ get(g:, 'tsuquyomi_waittime_after_open', str2float("0.01"))
 let g:tsuquyomi_completion_chunk_size = 
       \ get(g:, 'tsuquyomi_completion_chunk_size', 20)
 let g:tsuquyomi_completion_detail = 
       \ get(g:, 'tsuquyomi_completion_detail', 0)
 let g:tsuquyomi_completion_case_sensitive = 
       \ get(g:, 'tsuquyomi_completion_case_sensitive', 0)
+let g:tsuquyomi_case_sensitive_imports =
+      \ get(g:, 'tsuquyomi_case_sensitive_imports', 0)
 let g:tsuquyomi_completion_preview = 
       \ get(g:, 'tsuquyomi_completion_preview', 0)
 let g:tsuquyomi_definition_split =
@@ -62,6 +64,8 @@ let g:tsuquyomi_shortest_import_path =
       \ get(g:, 'tsuquyomi_shortest_import_path', 0)
 let g:tsuquyomi_use_vimproc =
       \ get(g:, 'tsuquyomi_use_vimproc', 0)
+let g:tsuquyomi_locale =
+      \ get(g:, 'tsuquyomi_locale', 'en')
 " Global options defintion. }}}
 
 " augroup tsuquyomi_global_command_group
