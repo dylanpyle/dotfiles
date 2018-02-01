@@ -129,7 +129,7 @@ PROMPT=$current_host' '$cwd' '$current_branch'
 
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
-export PATH=./bin:~/bin:$PATH
+export PATH=~/bin:$PATH
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH="$HOME/.fastlane/bin:$PATH"
 export PATH=~/Library/Python/3.6/bin:$PATH
