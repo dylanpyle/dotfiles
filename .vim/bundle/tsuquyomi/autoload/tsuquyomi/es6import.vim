@@ -10,6 +10,7 @@ set cpo&vim
 
 let s:V = vital#of('tsuquyomi')
 let s:Filepath = s:V.import('System.Filepath')
+let s:JSON = s:V.import('Web.JSON')
 
 function! s:normalizePath(path)
   return substitute(a:path, '\\', '/', 'g')
@@ -113,6 +114,9 @@ function! tsuquyomi#es6import#createImportBlock(text)
       let l:relative_path = s:removeTSExtensions(l:relative_path)
       if g:tsuquyomi_shortest_import_path == 1
         let l:path = s:getShortestImportPath(l:to, l:identifier, l:relative_path)
+      elseif g:tsuquyomi_baseurl_import_path == 1
+        let l:base_url_import_path = s:getBaseUrlImportPath(nav.file)
+        let l:path = l:base_url_import_path != '' ? l:base_url_import_path : l:relative_path
       else
         let l:path = l:relative_path
       endif
@@ -129,7 +133,21 @@ function! tsuquyomi#es6import#createImportBlock(text)
     call filter(l:result_list, 'v:val.identifier ==# l:identifier')
   endif
 
-  return l:result_list
+  " Make the possible imports list unique per path
+  let dictionary = {}
+  for i in l:result_list
+    let dictionary[i.path] = i
+  endfor
+
+  let l:unique_result_list = []
+
+  if (exists('a:1'))
+    let l:unique_result_list = sort(values(dictionary), a:1)
+  else
+    let l:unique_result_list = sort(values(dictionary))
+  endif
+
+  return l:unique_result_list
 endfunction
 
 function! s:removeTSExtensions(path)
@@ -137,6 +155,8 @@ function! s:removeTSExtensions(path)
   let l:path = substitute(l:path, '\.d\.ts$', '', '')
   let l:path = substitute(l:path, '\.ts$', '', '')
   let l:path = substitute(l:path, '\.tsx$', '', '')
+  let l:path = substitute(l:path, '^@types/', '', '')
+  let l:path = substitute(l:path, '/index$', '', '')
   return l:path
 endfunction
 
@@ -199,6 +219,47 @@ function! s:getShortenedPath(splitted_absolute_path, previous_shortened_path, mo
     endif
   endwhile
   return l:current_directory_name . l:path_separator . l:shortened_path
+endfunction
+
+function! s:getBaseUrlImportPath(module_absolute_path)
+  let [l:tsconfig, l:tsconfig_file_path] = s:getTsconfig(a:module_absolute_path)
+
+  if empty(l:tsconfig) || l:tsconfig_file_path == ''
+    return ''
+  endif
+
+  let l:project_root_path = fnamemodify(l:tsconfig_file_path, ':h').'/'
+  " We assume that baseUrl is a path relative to tsconfig.json path.
+  let l:base_url_config = has_key(l:tsconfig.compilerOptions, 'baseUrl') ? l:tsconfig.compilerOptions.baseUrl : '.'
+  let l:base_url_path = simplify(l:project_root_path.l:base_url_config)
+
+  return s:removeTSExtensions(substitute(a:module_absolute_path, l:base_url_path, '', ''))
+endfunction
+
+let s:tsconfig = {}
+let s:tsconfig_file_path = ''
+
+function! s:getTsconfig(module_absolute_path)
+  if empty(s:tsconfig)
+    let l:project_info = tsuquyomi#tsClient#tsProjectInfo(a:module_absolute_path, 0)
+
+    if has_key(l:project_info, 'configFileName')
+      let s:tsconfig_file_path = l:project_info.configFileName
+    else
+      echom '[Tsuquyomi] Cannot find project’s tsconfig.json to compute baseUrl import path.'
+    endif
+
+    let l:json = join(readfile(s:tsconfig_file_path),'')
+
+    try
+      let s:tsconfig = s:JSON.decode(l:json)
+    catch
+      echom '[Tsuquyomi] Cannot parse project’s tsconfig.json. Does it have comments?'
+    endtry
+
+  endif
+
+  return [s:tsconfig, s:tsconfig_file_path]
 endfunction
 
 function! s:findExportingFileForModule(module, current_module_file, module_directory_path)
@@ -339,17 +400,17 @@ function! tsuquyomi#es6import#getImportDeclarations(fileName, content_list)
   return [l:result_list, l:position, '']
 endfunction
 
-let s:impotable_module_list = []
+let s:importable_module_list = []
 function! tsuquyomi#es6import#moduleComplete(arg_lead, cmd_line, cursor_pos)
-  return join(s:impotable_module_list, "\n")
+  return join(s:importable_module_list, "\n")
 endfunction
 
 function! tsuquyomi#es6import#selectModule()
   echohl String
-  let l:selected_module = input('[Tsuquyomi] You can import from 2 more than modules. Select one : ', '', 'custom,tsuquyomi#es6import#moduleComplete')
-  echohl none 
+  let l:selected_module = input('[Tsuquyomi] You can import from 2 or more modules. Select one : ', '', 'custom,tsuquyomi#es6import#moduleComplete')
+  echohl none
   echo ' '
-  if len(filter(copy(s:impotable_module_list), 'v:val==#l:selected_module'))
+  if len(filter(copy(s:importable_module_list), 'v:val==#l:selected_module'))
     return [l:selected_module, 1]
   else
     echohl Error
@@ -367,7 +428,7 @@ function! tsuquyomi#es6import#complete()
   let l:identifier_info = s:get_keyword_under_cursor()
   let l:list = tsuquyomi#es6import#createImportBlock(l:identifier_info.text)
   if len(l:list) > 1
-    let s:impotable_module_list = map(copy(l:list), 'v:val.path')
+    let s:importable_module_list = map(copy(l:list), 'v:val.path')
     let [l:selected_module, l:code] = tsuquyomi#es6import#selectModule()
     if !l:code
       echohl Error
