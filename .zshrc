@@ -38,6 +38,9 @@ alias note='(echo && date && cat) >> ~/notes.txt'
 alias bell="echo -ne '\007'"
 alias pg='pgcli --less-chatty'
 
+alias pg_stg='pg $(security find-generic-password -a $USER -s staging-db-string -w)'
+alias pg_prod='pg $(security find-generic-password -a $USER -s production-db-string -w)'
+
 alias cpost='curl -sX POST -H "Content-Type: application/json" '
 alias cget='curl -sX GET '
 alias cput='curl -sX PUT -H "Content-Type: application/json" '
@@ -131,8 +134,10 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=~/bin:$PATH
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
-export PATH="$HOME/.fastlane/bin:$PATH"
+export PATH=~/.fastlane/bin:$PATH
 export PATH=~/Library/Python/3.6/bin:$PATH
+export PATH=/usr/local/texlive/2017basic/bin/x86_64-darwin:$PATH
+export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin":$PATH
 
 export EDITOR='vim'
 
@@ -144,4 +149,11 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 
 export GPG_TTY=$(tty)
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+test -e ~/.iterm2_shell_integration.zsh && source ~/.iterm2_shell_integration.zsh || true
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/dylan/n/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/dylan/n/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/dylan/n/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/dylan/n/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh

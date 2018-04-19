@@ -124,7 +124,7 @@ let g:javascript_plugin_jsdoc = 1
 
 " Set current color scheme
 set background=dark
-colorscheme hybrid
+colorscheme iceberg
 
 " Update tab bar colors
 hi TabLineFill ctermfg=233 ctermbg=233
