@@ -39,7 +39,8 @@ alias bell="echo -ne '\007'"
 alias pg='pgcli --less-chatty'
 
 alias pg_stg='pg $(security find-generic-password -a $USER -s staging-db-string -w)'
-alias pg_prod='pg $(security find-generic-password -a $USER -s production-db-string -w)'
+alias pg_prod='pg $(security find-generic-password -a $USER -s production-readonly-db-string -w)'
+alias pg_dangerous_production='pg $(security find-generic-password -a $USER -s production-db-string -w)'
 
 alias cpost='curl -sX POST -H "Content-Type: application/json" '
 alias cget='curl -sX GET '
