@@ -30,9 +30,9 @@ alias m='make'
 alias o='open'
 alias h='heroku'
 alias f='git grep -Iin'
+alias ff="ggrep -ER --color --exclude-dir 'node_modules' --exclude-dir '.*'"
 alias serve='python -m SimpleHTTPServer'
 alias tmux='TERM=screen-256color-bce tmux'
-alias uuid='node -e "console.log(require(\"node-uuid\").v4())"'
 alias whereami='pwd'
 alias note='(echo && date && cat) >> ~/notes.txt'
 alias bell="echo -ne '\007'"
