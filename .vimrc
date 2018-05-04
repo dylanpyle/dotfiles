@@ -40,6 +40,9 @@ let g:ctrlp_extensions = ['line']
 command NF NERDTreeFind
 map <Leader>o :NERDTreeFind<CR>
 
+" Remap = to ALELint
+nnoremap = :ALELint<CR>
+
 
 " Allow <esc><esc> to escape terminal buffers
 " (neovim-specific; disabled for right now since I use this file as my .vimrc
@@ -162,7 +165,13 @@ set shortmess+=I
 let g:ale_completion_enabled = 1
 let g:ale_open_list = 1
 let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
+let g:ale_keep_list_window_open = 1
+let g:ale_completion_delay = 200
+let g:ale_completion_max_suggestions = 10
+highlight ALEError cterm=underline
+
+" Disabled for now due to https://github.com/w0rp/ale/issues/1529
+" let g:ale_lint_on_insert_leave = 1
 
 " ~~~ Misc ~~~
 
