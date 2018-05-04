@@ -1,8 +1,8 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim ftplugin file
 "
-" Language: TSX (JavaScript)
-" Depends: leafgarland/typescript-vim
+" Language: JSX (JavaScript)
+" Maintainer: Max Wang <mxawng@gmail.com>
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -10,7 +10,7 @@
 if exists("loaded_matchit")
   let b:match_ignorecase = 0
   let b:match_words = '(:),\[:\],{:},<:>,' .
-        \ '<\@<=\([^/][^ \t>]*\)[^>]*\%(/\@<!>\|$\):<\@<=/\1>'
+        \ '<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>'
 endif
 
-setlocal suffixesadd+=.tsx
+setlocal suffixesadd+=.jsx
