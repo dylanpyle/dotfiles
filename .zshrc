@@ -30,7 +30,7 @@ alias m='make'
 alias o='open'
 alias h='heroku'
 alias f='git grep -Iin'
-alias ff="ggrep -ER --color --exclude-dir 'node_modules' --exclude-dir '.*'"
+alias ff="ggrep -IER --color --exclude-dir 'node_modules' --exclude-dir '.*'"
 alias serve='python -m SimpleHTTPServer'
 alias tmux='TERM=screen-256color-bce tmux'
 alias whereami='pwd'
