@@ -103,9 +103,6 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 " Show line numbers
 set number
 
-" Show cursor line
-set cursorline
-
 " Show 80 character marker
 set cc=80
 
@@ -114,7 +111,7 @@ syntax on
 filetype plugin indent on
 
 " Allow JSX highlighting in *.js
-let g:jsx_ext_required = 0
+let g:jsx_ext_required = 1
 
 " Allow JSDoc highlighting
 let g:javascript_plugin_jsdoc = 1

@@ -16,6 +16,7 @@
 	rb = rebase
 	d = difftool
 	huh = diff --stat HEAD~1
+  ds = diff --stat
 	db = branch -D
 	versions = tag --sort=-v:refname
 [commit]

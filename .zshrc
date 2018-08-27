@@ -24,16 +24,15 @@ else
   alias ll='ls --color -alh'
 fi
 
-alias v='vim'
+alias v='code'
 alias g='git'
 alias m='make'
 alias o='open'
-alias h='heroku'
 alias f='git grep -Iin'
 alias ff="ggrep -IER --color --exclude-dir 'node_modules' --exclude-dir '.*'"
+alias fff='mdfind -onlyin .'
 alias serve='python -m SimpleHTTPServer'
 alias tmux='TERM=screen-256color-bce tmux'
-alias whereami='pwd'
 alias note='(echo && date && cat) >> ~/notes.txt'
 alias bell="echo -ne '\007'"
 alias pg='pgcli --less-chatty'
@@ -81,9 +80,13 @@ gup() (
   git merge master
 )
 
+gpullo() {
+  git pull origin $(get_branch_name)
+}
+
 gpr() {
   gpush
-  hub pull-request -b master -o
+  hub pull-request -o "$@"
 }
 
 tabname() {
@@ -151,10 +154,3 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 export GPG_TTY=$(tty)
 
 test -e ~/.iterm2_shell_integration.zsh && source ~/.iterm2_shell_integration.zsh || true
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/dylan/n/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/dylan/n/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/dylan/n/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/dylan/n/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
