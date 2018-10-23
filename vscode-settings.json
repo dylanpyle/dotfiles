@@ -1,0 +1,48 @@
+{
+    "workbench.startupEditor": "newUntitledFile",
+    "editor.fontFamily": "Hasklig",
+    "editor.fontSize": 14,
+    "editor.tabSize": 2,
+    "editor.renderWhitespace": "boundary",
+    "editor.rulers": [80],
+    "editor.wordWrap": "on",
+    "files.insertFinalNewline": true,
+    "workbench.editor.enablePreview": false,
+    "vim.leader": ",",
+    "vim.hlsearch": true,
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [";"],
+            "after": [":"]
+        }
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": ["<space>"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "sortLines.sortLines",
+                    "args": []
+                }
+            ]
+        }
+    ],
+    "workbench.colorTheme": "Material Theme Darker High Contrast",
+    "window.title": "${activeEditorLong}",
+    "workbench.iconTheme": "vs-minimal",
+    "workbench.activityBar.visible": false,
+    "window.zoomLevel": 0,
+    "editor.minimap.enabled": true,
+    "editor.renderControlCharacters": true,
+    "workbench.editor.tabCloseButton": "off",
+    "workbench.editor.showIcons": false,
+    "terminal.integrated.fontFamily": "Hasklig",
+    "terminal.integrated.fontSize": 13,
+    "search.location": "panel",
+    "breadcrumbs.enabled": false,
+    "explorer.sortOrder": "mixed",
+    "vim.textwidth": 81,
+    "gitlens.currentLine.enabled": false,
+    "workbench.statusBar.feedback.visible": false
+}

@@ -1480,6 +1480,11 @@
 	<false/>
 	<key>NSScrollViewShouldScrollUnderTitlebar</key>
 	<false/>
+	<key>NSSplitView Subview Frames NSColorPanelSplitView</key>
+	<array>
+		<string>0.000000, 0.000000, 224.000000, 258.000000, NO, NO</string>
+		<string>0.000000, 259.000000, 224.000000, 48.000000, NO, NO</string>
+	</array>
 	<key>NSTableView Columns v2 KeyBingingTable</key>
 	<data>
 	YnBsaXN0MDDUAQIDBAUGNjdYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3AS
@@ -1547,19 +1552,21 @@
 		</array>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1179 228 510 314 0 0 1920 1058 </string>
+	<string>978 220 510 180 0 0 1680 1028 </string>
 	<key>NSWindow Frame SUAutomaticUpdateAlert</key>
-	<string>652 663 616 174 0 0 1920 1058 </string>
+	<string>1196 1121 616 174 0 0 3008 1669 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>423 1399 620 392 -227 900 1920 1058 </string>
+	<string>650 499 620 392 0 0 1920 1058 </string>
+	<key>NSWindow Frame SessionsPreferences</key>
+	<string>269 126 606 469 0 0 1920 1058 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>784 586 1018 447 0 0 1920 1058 </string>
+	<string>1130 774 1018 447 0 0 3008 1669 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>155 474 592 584 0 0 1920 1058 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>291 30 1338 998 0 0 1920 1058 </string>
+	<string>0 0 1170 944 0 0 3008 1669 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 420 650 452 0 0 1440 878 </string>
+	<string>451 44 2106 1580 0 0 3008 1669 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2317,18 +2324,7 @@
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Triggers</key>
-			<array>
-				<dict>
-					<key>action</key>
-					<string>ScriptTrigger</string>
-					<key>parameter</key>
-					<string>osascript -e "beep 1"</string>
-					<key>partial</key>
-					<false/>
-					<key>regex</key>
-					<string>ringbell</string>
-				</dict>
-			</array>
+			<array/>
 			<key>Unicode Normalization</key>
 			<integer>0</integer>
 			<key>Unicode Version</key>
@@ -2375,6 +2371,53 @@
 	<integer>0</integer>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
+	<key>NoSyncRecordedVariableNames</key>
+	<dict>
+		<key>1</key>
+		<array>
+			<string>session.termid</string>
+			<string>session.autoName</string>
+			<string>session.tmuxClientName</string>
+			<string>session.columns</string>
+			<string>session.jobName</string>
+			<string>session.creationTimeString</string>
+			<string>session.lastCommand</string>
+			<string>session.path</string>
+			<string>session.profileName</string>
+			<string>session.rows</string>
+			<string>session.presentationName</string>
+			<string>session.tmuxWindowTitle</string>
+			<string>session.hostname</string>
+			<string>session.id</string>
+			<string>session.tmuxRole</string>
+			<string>session.username</string>
+			<string>session.tty</string>
+			<string>session.autoLogId</string>
+			<string>session.terminalWindowName</string>
+			<string>session.terminalIconName</string>
+		</array>
+		<key>2</key>
+		<array>
+			<string>currentSession</string>
+			<string>currentSession.session.termid</string>
+			<string>currentSession.session.autoName</string>
+			<string>currentSession.session.path</string>
+			<string>currentSession.session.terminalWindowName</string>
+			<string>currentSession.session.rows</string>
+			<string>currentSession.session.tty</string>
+			<string>currentSession.session.lastCommand</string>
+			<string>currentSession.session.presentationName</string>
+			<string>currentSession.session.hostname</string>
+			<string>currentSession.session.terminalIconName</string>
+			<string>currentSession.session.username</string>
+			<string>currentSession.session.jobName</string>
+			<string>currentSession.session.columns</string>
+		</array>
+		<key>4</key>
+		<array>
+			<string>pid</string>
+		</array>
+	</dict>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>537912539.01103103</real>
 	<key>OnlyWhenMoreTabs</key>
@@ -2445,11 +2488,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/nightly.xml?shard=63</string>
+	<string>https://iterm2.com/appcasts/testing.xml?shard=63</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-05-11T04:37:12Z</date>
+	<date>2018-10-16T18:40:14Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -2457,7 +2500,7 @@
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>ShowMetalFPSmeter</key>
 	<false/>
 	<key>ShowPaneTitles</key>
@@ -2483,7 +2526,7 @@
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1519234816</real>
+	<real>1529364224</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>Use background pattern indicator</key>
@@ -3330,6 +3373,8 @@
 	<string></string>
 	<key>ZippyTextDrawing</key>
 	<false/>
+	<key>disableMetalWhenUnplugged</key>
+	<true/>
 	<key>findIgnoreCase_iTerm</key>
 	<true/>
 	<key>findMode_iTerm</key>
@@ -3337,7 +3382,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.2.20180510-nightly</string>
+	<string>3.2.3</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

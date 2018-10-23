@@ -30,15 +30,17 @@ vmap <Space> :sort i<CR>
 " Remap CtrlP key to backslash
 let g:ctrlp_map = '<Bslash>'
 
-" Open CtrlP in the last mode (switch with c-f and c-b) we were using
-let g:ctrlp_cmd = 'CtrlPLastMode'
+" Use | for CtrlP Buffer Mode
+noremap <Bar> :CtrlPBuffer<CR>
+
+" Open CtrlP in file mode (switch with c-f and c-b)
+let g:ctrlp_cmd = 'CtrlP'
 
 " Add fuzzy line extension
 let g:ctrlp_extensions = ['line']
 
 " Allow :NF as an alias for NERDTreeFind
 command NF NERDTreeFind
-map <Leader>o :NERDTreeFind<CR>
 
 " Remap = to ALELint
 nnoremap = :ALELint<CR>
@@ -166,6 +168,9 @@ let g:ale_keep_list_window_open = 1
 let g:ale_completion_delay = 200
 let g:ale_completion_max_suggestions = 10
 highlight ALEError cterm=underline
+let g:ale_linters = {
+\    'typescript': ['tslint', 'tsserver'],
+\}
 
 " Disabled for now due to https://github.com/w0rp/ale/issues/1529
 " let g:ale_lint_on_insert_leave = 1

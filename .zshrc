@@ -24,7 +24,7 @@ else
   alias ll='ls --color -alh'
 fi
 
-alias v='code'
+alias v='vim'
 alias g='git'
 alias m='make'
 alias o='open'
