@@ -35,17 +35,19 @@ endif
 "     this will incorrectly highlight pseudo elements incorrectly used as
 "     attributes but correctly highlight actual attributes
 syn region cssCustomAttrRegion contained
-      \ start=":" end="\ze\%(,\|;\|)\|{\|}\|`\)"
+      \ start=":" end="\ze\%(;\|)\|{\|}\|`\)"
       \ contains=css.*Attr,cssColor,cssImportant,cssValue.*,cssFunction,
       \          cssString.*,cssURL,cssComment,cssUnicodeEscape,cssVendor,
       \          cssError,cssAttrComma,cssNoise,cssPseudoClassId,
-      \          jsTemplateExpression
+      \          jsTemplateExpression,
+      \          typescriptInterpolation
 syn region cssCustomAttrRegion contained
       \ start="transition\s*:" end="\ze\%(;\|)\|{\|}\|`\)"
       \ contains=css.*Prop,css.*Attr,cssColor,cssImportant,cssValue.*,
       \          cssFunction,cssString.*,cssURL,cssComment,cssUnicodeEscape,
       \          cssVendor,cssError,cssAttrComma,cssNoise,cssPseudoClassId,
-      \          jsTemplateExpression
+      \          jsTemplateExpression,
+      \          typescriptInterpolation
 
 " define custom css elements to not utilize cssDefinition
 syn region cssCustomMediaBlock contained fold transparent matchgroup=cssBraces
@@ -66,12 +68,18 @@ syn match cssCustomPageMargin contained skipwhite skipnl
 syn match cssCustomKeyFrameSelector "\%(\d*%\|\<from\>\|\<to\>\)" contained
       \ skipwhite skipnl
 
+" define css include customly to overwrite nextgroup
+syn region cssInclude start="@media\>" end="\ze{" skipwhite skipnl
+      \ contains=cssMediaProp,cssValueLength,cssMediaKeyword,cssValueInteger,
+      \          cssMediaMediaAttr,cssVencor,cssMediaType,cssIncludeKeyword,
+      \          cssMediaComma,cssComment
+      \ nextgroup=cssCustomMediaBlock
+
 " define all non-contained css definitions
 syn cluster CSSTop
       \ contains=cssTagName,cssSelectorOp,cssAttributeSelector,cssClassName,
-      \          cssBraces,cssIdentifier,cssInclude,cssPage,cssKeyFrame,
-      \          cssInclude,cssFontDescriptor,cssAttrComma,cssPseudoClass,
-      \          cssUnicodeEscape
+      \          cssBraces,cssIdentifier,cssIncludeKeyword,cssPage,cssKeyFrame,
+      \          cssFontDescriptor,cssAttrComma,cssPseudoClass,cssUnicodeEscape
 
 " custom highlights for styled components
 "   - "&" inside top level
@@ -104,12 +112,24 @@ syn match styledPrefix "\.\<extend\>"
       \ nextgroup=styledDefinition
       \ containedin=jsFuncBlock
 
+" define custom API section, that contains typescript annotations
+" this is structurally similar to `jsFuncCall`, but allows type
+" annotations (delimited by brackets (e.g. "<>")) between `styled` and
+" the function call parenthesis
+syn match styledTypescriptPrefix
+      \ "\<styled\><\%(\k\|'\|\"\|`\|,\|\s\)\+>(\%('\k\+'\|\"\k\+\"\|`\k\+`\))"
+      \ transparent fold
+      \ nextgroup=styledDefinition
+      \ contains=cssTagName,
+      \          typescriptOpSymbols,typescriptEndColons,typescriptParens,
+      \          styledTagNameString
+
 " define emotion css prop
 " to bypass problems from top-level defined xml/js definitions, this
 " plugin re-defines keywords/noise for highlighting inside of the custom
 " xmlAttrib definition
 syn keyword styledXmlRegionKeyword css contained
-syn match   styledXmlRegionNoise "\%(=\|{\|}\)"
+syn match   styledXmlRegionNoise "\%(=\|{\|}\)" contained
 " only include styledDefinitions inside of xmlAttribs, that are wrapped
 " in `css={}` regions, `keepend` is necessary to correctly break on the
 " higher-level xmlAttrib region end
@@ -129,9 +149,9 @@ syn match cssError contained "{@<>"
 
 " extend javascript matches to trigger styledDefinition highlighting
 syn match jsTaggedTemplate extend
-      \ "\<css\>\|\<keyframes\>\|\<injectGlobal\>\|\<fontFace\>"
+      \ "\<css\>\|\<keyframes\>\|\<injectGlobal\>\|\<fontFace\>\|\<createGlobalStyle\>"
       \ nextgroup=styledDefinition
-syn match jsFuncCall "\<styled\>\s*(\k\+)"
+syn match jsFuncCall "\<styled\>\s*(.\+)" transparent
       \ nextgroup=styledDefinition
 syn match jsFuncCall "\<styled\>\s*(\%('\k\+'\|\"\k\+\"\|`\k\+`\))"
       \ contains=styledTagNameString
@@ -153,6 +173,7 @@ syn region styledDefinition contained transparent fold extend
       \          cssHacks,
       \          cssCustom.*,
       \          jsComment,jsTemplateExpression,
+      \          typescriptInterpolation,
       \          styledAmpersand,styledNestedRegion
 syn region styledDefinitionArgument contained transparent start=+(+ end=+)+
       \ contains=styledDefinition

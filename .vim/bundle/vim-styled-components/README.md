@@ -33,7 +33,7 @@ Install via:
 
 Add to vimrc:
 
-    Plug 'styled-components/vim-styled-components'
+    Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 Install via:
 
@@ -64,7 +64,7 @@ Neither will this:
 ```javascript
 import dc from 'diet-cola';
 
-const mainTheme = `
+const mainStyles = `
   background-color: papayawhip;
   color: palevioletred;
 `;

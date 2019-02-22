@@ -56,10 +56,6 @@ stagerm() {
   git ls-files --deleted -z | xargs -0 git rm
 }
 
-miracle() {
-  git fsck --unreachable | grep commit | cut -d ' ' -f3 | xargs git show
-}
-
 # Create a new branch off the latest master changes
 gnb() (
   set -e
@@ -134,6 +130,7 @@ local prompt_color='%(?.%{$fg[blue]%}.%{$fg[red]%})'
 PROMPT=$current_host' '$cwd' '$current_branch'
 '$prompt_color'▸ '%{$reset_color%}
 
+export PATH=/usr/local/opt/findutils/libexec/gnubin:$PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=~/bin:$PATH
@@ -152,5 +149,3 @@ bindkey '[D' backward-word
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
 export GPG_TTY=$(tty)
-
-test -e ~/.iterm2_shell_integration.zsh && source ~/.iterm2_shell_integration.zsh || true

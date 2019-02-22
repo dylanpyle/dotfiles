@@ -18,8 +18,8 @@ nnoremap <Leader>p "*p<CR><Esc>
 " cp to copy file path to system clipboard
 nmap cp :let @* = expand("%")<CR>
 
-" Back to single-prefix EasyMotion movements
-map <Leader> <Plug>(easymotion-prefix)
+" cf as an alias for NERDTreeFind
+nmap cf :NERDTreeFind<CR>
 
 " Use <Space> to toggle NERDTree
 noremap <Space> :NERDTreeToggle<CR>
@@ -36,22 +36,22 @@ noremap <Bar> :CtrlPBuffer<CR>
 " Open CtrlP in file mode (switch with c-f and c-b)
 let g:ctrlp_cmd = 'CtrlP'
 
-" Add fuzzy line extension
-let g:ctrlp_extensions = ['line']
+" Allow ctrl+@ on CtrlP buffer list to delete buffers
+let g:ctrlp_buffer_func = { 'enter': 'CtrlPMappings' }
 
-" Allow :NF as an alias for NERDTreeFind
-command NF NERDTreeFind
+function! CtrlPMappings()
+  nnoremap <buffer> <silent> <C-@> :call <sid>DeleteBuffer()<cr>
+endfunction
+
+function! s:DeleteBuffer()
+  let path = fnamemodify(getline('.')[2:], ':p')
+  let bufn = matchstr(path, '\v\d+\ze\*No Name')
+  exec "bd" bufn ==# "" ? path : bufn
+  exec "norm \<F5>"
+endfunction
 
 " Remap = to ALELint
 nnoremap = :ALELint<CR>
-
-
-" Allow <esc><esc> to escape terminal buffers
-" (neovim-specific; disabled for right now since I use this file as my .vimrc
-" too and don't use this feature often enough to bother figuring out how to keep
-" it from throwing errors in vim)
-"
-" tnoremap <esc><esc> <C-\><C-n>
 
 
 " ~~~ Indentation options ~~~
@@ -70,9 +70,6 @@ set shiftwidth=2
 
 " ... but round to the nearest 2
 set shiftround
-
-" Use tabs for golang
-au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
 
 " Set text limit to 80 characters
 set tw=80
@@ -112,9 +109,6 @@ set cc=80
 syntax on
 filetype plugin indent on
 
-" Allow JSX highlighting in *.js
-let g:jsx_ext_required = 1
-
 " Allow JSDoc highlighting
 let g:javascript_plugin_jsdoc = 1
 
@@ -122,10 +116,11 @@ let g:javascript_plugin_jsdoc = 1
 set background=dark
 colorscheme iceberg
 
-" Update tab bar colors
+" Update tab bar & status bar colors
 hi TabLineFill ctermfg=233 ctermbg=233
 hi TabLine ctermfg=Black ctermbg=Black
 hi TabLineSel ctermfg=Blue ctermbg=Black
+hi StatusLine ctermbg=White ctermfg=Black
 
 " Highlight any trailing whitespace
 highlight ExtraWhitespace ctermbg=61
@@ -133,13 +128,6 @@ match ExtraWhitespace /\s\+$/
 
 " Show row/column position
 set ruler
-
-" Only show cursorline in active window
-augroup CursorLineOnlyInActiveWindow
-  autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
-augroup END
 
 " Hide NERDTree clutter
 let NERDTreeMinimalUI=1
@@ -161,19 +149,20 @@ set statusline+=\ %r%w%h " Any flags (readonly etc)
 set shortmess+=I
 
 " Set up Ale
+" Most lint_on things disabled for now due to
+" https://github.com/w0rp/ale/issues/1529 and other related segfaults
 let g:ale_completion_enabled = 1
-let g:ale_open_list = 1
-let g:ale_lint_on_text_changed = 'normal'
 let g:ale_keep_list_window_open = 1
-let g:ale_completion_delay = 200
+let g:ale_open_list = 1
+let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_enter = 0
+let g:ale_lint_on_enter = 1
+" let g:ale_completion_delay = 200
 let g:ale_completion_max_suggestions = 10
 highlight ALEError cterm=underline
 let g:ale_linters = {
-\    'typescript': ['tslint', 'tsserver'],
+\    'typescript': ['tsserver'],
 \}
-
-" Disabled for now due to https://github.com/w0rp/ale/issues/1529
-" let g:ale_lint_on_insert_leave = 1
 
 " ~~~ Misc ~~~
 
@@ -183,8 +172,5 @@ set mouse=n
 " Fix strange backspace behavior
 set backspace=2
 
-" MacVim only - hide scrollbars
-set guioptions=
-
-" MacVim - set GUI font
-set guifont=Inconsolata\ Regular:h17
+" Improve scroll performance (uhh...?)
+set ttyfast
