@@ -18,8 +18,17 @@ nnoremap <Leader>p "*p<CR><Esc>
 " cp to copy file path to system clipboard
 nmap cp :let @* = expand("%")<CR>
 
-" cf as an alias for NERDTreeFind
-nmap cf :NERDTreeFind<CR>
+" ,f as an alias for NERDTreeFind
+nmap <Leader>f :NERDTreeFind<CR>
+
+" ,d to jump to definition of function/variable/etc
+nmap <Leader>d :ALEGoToDefinitionInTab<CR>
+
+" ,r to find references to current function/variable/etc
+nmap <Leader>r :ALEFindReferences<CR>
+
+" ,b to git blame
+nmap <Leader>b :tabe\|read !git blame --date=short #<CR>
 
 " Use <Space> to toggle NERDTree
 noremap <Space> :NERDTreeToggle<CR>
@@ -40,7 +49,7 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_buffer_func = { 'enter': 'CtrlPMappings' }
 
 function! CtrlPMappings()
-  nnoremap <buffer> <silent> <C-@> :call <sid>DeleteBuffer()<cr>
+  nnoremap <buffer> <silent> <C-l> :call <sid>DeleteBuffer()<cr>
 endfunction
 
 function! s:DeleteBuffer()
@@ -116,11 +125,16 @@ let g:javascript_plugin_jsdoc = 1
 set background=dark
 colorscheme iceberg
 
+" Transparent-ish background
+hi Normal ctermbg=NONE
+hi LineNr ctermbg=NONE
+hi EndOfBuffer ctermbg=NONE
+
 " Update tab bar & status bar colors
-hi TabLineFill ctermfg=233 ctermbg=233
-hi TabLine ctermfg=Black ctermbg=Black
-hi TabLineSel ctermfg=Blue ctermbg=Black
-hi StatusLine ctermbg=White ctermfg=Black
+" hi TabLineFill ctermfg=233 ctermbg=233
+" hi TabLine ctermfg=Black ctermbg=Black
+" hi TabLineSel ctermfg=Blue ctermbg=Black
+" hi StatusLine ctermbg=White ctermfg=Black
 
 " Highlight any trailing whitespace
 highlight ExtraWhitespace ctermbg=61
@@ -161,7 +175,9 @@ let g:ale_lint_on_enter = 1
 let g:ale_completion_max_suggestions = 10
 highlight ALEError cterm=underline
 let g:ale_linters = {
-\    'typescript': ['tsserver'],
+\    'typescript': ['tslint', 'tsserver'],
+\    'javascript': ['eslint'],
+\    'jsx': ['eslint']
 \}
 
 " ~~~ Misc ~~~

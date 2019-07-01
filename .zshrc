@@ -24,7 +24,8 @@ else
   alias ll='ls --color -alh'
 fi
 
-alias v='vim'
+alias v='nvim'
+alias vim='nvim'
 alias g='git'
 alias m='make'
 alias o='open'
@@ -81,6 +82,11 @@ gpullo() {
 }
 
 gpr() {
+  if [[ $(get_branch_name) == "master " ]]; then
+    echo 'Cannot PR from master branch'
+    exit 1
+  fi
+
   gpush
   hub pull-request -o "$@"
 }
@@ -139,8 +145,9 @@ export PATH=~/.fastlane/bin:$PATH
 export PATH=~/Library/Python/3.6/bin:$PATH
 export PATH=/usr/local/texlive/2017basic/bin/x86_64-darwin:$PATH
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin":$PATH
+export PATH="$HOME/.cargo/bin:$PATH"
 
-export EDITOR='vim'
+export EDITOR='nvim'
 
 bindkey -e
 bindkey '[C' forward-word
@@ -149,3 +156,5 @@ bindkey '[D' backward-word
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
 export GPG_TTY=$(tty)
+
+source ~/.env.private

@@ -1,7 +1,7 @@
 [user]
-	email = me@dylanpyle.com
+	email = d@ca.la
 	name = Dylan Pyle
-	signingkey = 11111111
+	signingkey = ca1aca1a
 [alias]
 	dad = add
 	br = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:black)%(committerdate:short) %(color:blue)%(refname:short) %(color:black)%(authorname)' --count=20 --no-merge
@@ -32,3 +32,5 @@
 	trustExitCode = true
 [pull]
 	default = current
+[protocol]
+	version = 2

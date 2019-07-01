@@ -28,7 +28,7 @@
             ]
         }
     ],
-    "workbench.colorTheme": "Material Theme Darker High Contrast",
+    "workbench.colorTheme": "Framer Syntax",
     "window.title": "${activeEditorLong}",
     "workbench.iconTheme": "vs-minimal",
     "workbench.activityBar.visible": false,
