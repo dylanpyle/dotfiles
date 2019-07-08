@@ -27,7 +27,6 @@ fi
 alias v='nvim'
 alias vim='nvim'
 alias g='git'
-alias m='make'
 alias o='open'
 alias f='git grep -Iin'
 alias ff="ggrep -IER --color --exclude-dir 'node_modules' --exclude-dir '.*'"
