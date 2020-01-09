@@ -175,7 +175,7 @@ let g:ale_lint_on_enter = 1
 let g:ale_completion_max_suggestions = 10
 highlight ALEError cterm=underline
 let g:ale_linters = {
-\    'typescript': ['tslint', 'tsserver'],
+\    'typescript': ['eslint', 'tsserver'],
 \    'javascript': ['eslint'],
 \    'jsx': ['eslint']
 \}

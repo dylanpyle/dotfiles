@@ -145,6 +145,7 @@ export PATH=~/Library/Python/3.6/bin:$PATH
 export PATH=/usr/local/texlive/2017basic/bin/x86_64-darwin:$PATH
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin":$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
+if [ -e /Users/dylan/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/dylan/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 export EDITOR='nvim'
 
