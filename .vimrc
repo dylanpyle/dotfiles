@@ -21,12 +21,6 @@ nmap cp :let @* = expand("%")<CR>
 " ,f as an alias for NERDTreeFind
 nmap <Leader>f :NERDTreeFind<CR>
 
-" ,d to jump to definition of function/variable/etc
-nmap <Leader>d :ALEGoToDefinitionInTab<CR>
-
-" ,r to find references to current function/variable/etc
-nmap <Leader>r :ALEFindReferences<CR>
-
 " ,b to git blame
 nmap <Leader>b :tabe\|read !git blame --date=short #<CR>
 
@@ -58,10 +52,6 @@ function! s:DeleteBuffer()
   exec "bd" bufn ==# "" ? path : bufn
   exec "norm \<F5>"
 endfunction
-
-" Remap = to ALELint
-nnoremap = :ALELint<CR>
-
 
 " ~~~ Indentation options ~~~
 
@@ -162,23 +152,13 @@ set statusline+=\ %r%w%h " Any flags (readonly etc)
 " Remove splash screen
 set shortmess+=I
 
-" Set up Ale
-" Most lint_on things disabled for now due to
-" https://github.com/w0rp/ale/issues/1529 and other related segfaults
-let g:ale_completion_enabled = 1
-let g:ale_keep_list_window_open = 1
-let g:ale_open_list = 1
-let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_enter = 0
-let g:ale_lint_on_enter = 1
-" let g:ale_completion_delay = 200
-let g:ale_completion_max_suggestions = 10
-highlight ALEError cterm=underline
-let g:ale_linters = {
-\    'typescript': ['tsserver'],
-\    'javascript': ['eslint'],
-\    'jsx': ['eslint']
-\}
+
+" ~~~ Coc ~~~
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> = :CocDiagnostics<CR>
 
 " ~~~ Misc ~~~
 
