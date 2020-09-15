@@ -10,6 +10,8 @@
 	<false/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
+	<key>ApplePressAndHoldEnabled</key>
+	<false/>
 	<key>AppleScrollAnimationEnabled</key>
 	<integer>0</integer>
 	<key>AppleSmoothFixedFontsSizeThreshold</key>
@@ -1472,7 +1474,11 @@
 	<false/>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/dotfiles</string>
+	<key>NSNavLastUserSetHideExtensionButtonState</key>
+	<false/>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
+	<string>{712, 448}</string>
+	<key>NSNavPanelExpandedSizeForSaveMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
@@ -1555,8 +1561,10 @@
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>978 55 510 295 0 0 1680 1027 </string>
+	<key>NSWindow Frame NSNavPanelAutosaveName</key>
+	<string>978 819 347 181 0 0 2304 1273 </string>
 	<key>NSWindow Frame SUAutomaticUpdateAlert</key>
-	<string>1196 1121 616 174 0 0 3008 1669 </string>
+	<string>844 824 616 174 0 0 2304 1273 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>1555 576 700 545 0 0 2560 1417 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
@@ -1566,9 +1574,9 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>282 1085 592 584 0 0 3008 1669 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>69 358 1634 890 0 0 3008 1669 </string>
+	<string>0 0 2560 1417 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>2156 735 570 438 0 0 3008 1669 </string>
+	<string>0 460 650 567 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>533 86 730 567 0 0 1680 1027 </string>
 	<key>New Bookmarks</key>
@@ -1626,12 +1634,16 @@
 			</dict>
 			<key>Ansi 12 Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.92941176891326904</real>
+				<real>1</real>
+				<key>Color Space</key>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.68627452850341797</real>
+				<real>0.78541952989441643</real>
 				<key>Red Component</key>
-				<real>0.035294119268655777</real>
+				<real>0.0</real>
 			</dict>
 			<key>Ansi 13 Color</key>
 			<dict>
@@ -1680,12 +1692,16 @@
 			</dict>
 			<key>Ansi 4 Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.92941176891326904</real>
+				<real>0.988677978515625</real>
+				<key>Color Space</key>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.68627452850341797</real>
+				<real>0.77652699310270412</real>
 				<key>Red Component</key>
-				<real>0.035294119268655777</real>
+				<real>0.0</real>
 			</dict>
 			<key>Ansi 5 Color</key>
 			<dict>
@@ -1745,13 +1761,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.1405029296875</real>
+				<real>0.139373779296875</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.11569965429191598</real>
+				<real>0.081470796372741461</real>
 				<key>Red Component</key>
-				<real>0.081989342346787453</real>
+				<real>0.090717815099608856</real>
 			</dict>
 			<key>Background Image Is Tiled</key>
 			<false/>
@@ -1833,6 +1849,8 @@
 			<false/>
 			<key>Disable Window Resizing</key>
 			<true/>
+			<key>Draw Powerline Glyphs</key>
+			<false/>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -1840,20 +1858,20 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.88421630859375</real>
+				<real>1</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.78254006803035736</real>
+				<real>0.9893798828125</real>
 				<key>Red Component</key>
-				<real>0.78299469622764761</real>
+				<real>0.98942736642400786</real>
 			</dict>
 			<key>Guid</key>
 			<string>B6F5387C-CB44-48B6-8302-50F7EADE2D4A</string>
 			<key>Hide After Opening</key>
 			<false/>
 			<key>Horizontal Spacing</key>
-			<real>0.88</real>
+			<real>1</real>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
@@ -2158,7 +2176,7 @@
 			<key>Log Directory</key>
 			<string></string>
 			<key>Minimum Contrast</key>
-			<real>0.12993191830788164</real>
+			<real>0.14418085296697256</real>
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
@@ -2170,7 +2188,7 @@
 			<key>Non-ASCII Ligatures</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>RecursiveMono-Beta_1_014_Linear-Light 16</string>
+			<string>SourceCodePro-Regular 17</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Option Key Sends</key>
@@ -2186,7 +2204,7 @@
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>1000</integer>
+			<integer>0</integer>
 			<key>Scrollback With Status Bar</key>
 			<false/>
 			<key>Scrollback in Alternate Screen</key>
@@ -2332,15 +2350,15 @@
 			<key>Title Components</key>
 			<integer>3</integer>
 			<key>Transparency</key>
-			<real>0.0</real>
+			<real>0.020594067258883249</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unicode Normalization</key>
 			<integer>0</integer>
 			<key>Unicode Version</key>
-			<integer>8</integer>
+			<integer>9</integer>
 			<key>Unlimited Scrollback</key>
-			<false/>
+			<true/>
 			<key>Use Bold Font</key>
 			<true/>
 			<key>Use Bright Bold</key>
@@ -2358,11 +2376,11 @@
 			<key>Use Underline Color</key>
 			<false/>
 			<key>Vertical Spacing</key>
-			<real>1.02</real>
+			<real>1</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
-			<integer>13</integer>
+			<integer>0</integer>
 			<key>Working Directory</key>
 			<string>/Users/dylan</string>
 		</dict>
@@ -3157,34 +3175,40 @@
 	<key>NoSyncAllAppVersions</key>
 	<array>
 		<string>3.3.3beta1</string>
-		<string>3.3.0beta16</string>
-		<string>3.3.0beta13</string>
-		<string>3.3.5beta3</string>
-		<string>3.3.5beta2</string>
+		<string>3.3.10beta4</string>
 		<string>3.3.0beta10</string>
+		<string>3.3.5beta2</string>
+		<string>3.3.7beta1</string>
 		<string>3.3.2beta1</string>
 		<string>3.3.0beta12</string>
-		<string>3.3.7beta1</string>
+		<string>3.3.8beta5</string>
+		<string>3.3.0beta13</string>
+		<string>3.3.8beta4</string>
+		<string>3.3.0beta16</string>
+		<string>3.3.7beta2</string>
+		<string>3.3.5beta3</string>
+		<string>3.3.9beta1</string>
+		<string>3.3.7beta4</string>
 	</array>
 	<key>NoSyncBFPRecents</key>
 	<array>
-		<string>Recursive Mono Beta 1.014</string>
+		<string>Source Code Pro</string>
 	</array>
 	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
 	<true/>
 	<key>NoSyncFrame_SessionsPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {3008, 1692}}</string>
+		<string>{{0, 0}, {2560, 1440}}</string>
 		<key>topLeft</key>
-		<string>{1201, 1381}</string>
+		<string>{269, 595}</string>
 	</dict>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {3008, 1692}}</string>
+		<string>{{0, 0}, {2560, 1440}}</string>
 		<key>topLeft</key>
-		<string>{611, 871}</string>
+		<string>{268, 596}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
@@ -3195,7 +3219,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>8C804614-E798-462F-90F0-5401580D998E</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>57</integer>
+	<integer>107</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3983,32 +4007,6 @@
 			</dict>
 		</array>
 	</dict>
-	<key>NoSyncSearchHistory</key>
-	<array>
-		<string>select * from (   select     u.id,     u.email,     (       select sum(total_paid)       from invoice_with_payments       where user_id = u.id     ) as total   from users as u ) as res where total &gt; 0;</string>
-		<string>videos</string>
-		<string>unique</string>
-		<string>local</string>
-		<string>pricin</string>
-		<string>default</string>
-		<string>initial</string>
-		<string>joined</string>
-		<string>nick</string>
-		<string>ccd08d55-902c-4b26-917e-6aae690f2445</string>
-	</array>
-	<key>NoSyncSearchHistory2</key>
-	<array>
-		<string>--with</string>
-		<string>paiddesignb</string>
-		<string>paidbi</string>
-		<string>paidbid</string>
-		<string>qqq</string>
-		<string>knotqq</string>
-		<string>tsconfigq</string>
-		<string>accepted</string>
-		<string>qqqq</string>
-		<string>format</string>
-	</array>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>537912539.01103103</real>
 	<key>OnlyWhenMoreTabs</key>
@@ -4083,7 +4081,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-10-28T17:00:18Z</date>
+	<date>2020-07-01T21:05:52Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -4093,9 +4091,11 @@
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>ShowMetalFPSmeter</key>
 	<false/>
+	<key>ShowNewOutputIndicator</key>
+	<true/>
 	<key>ShowPaneTitles</key>
 	<false/>
 	<key>SmartPlacement</key>
@@ -4104,8 +4104,10 @@
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.1802158453525641</real>
+	<key>StatusBarPosition</key>
+	<integer>1</integer>
 	<key>StretchTabsToFillBar</key>
-	<false/>
+	<true/>
 	<key>SwitchTabModifier</key>
 	<integer>4</integer>
 	<key>SwitchWindowModifier</key>
@@ -4116,6 +4118,8 @@
 	<integer>5</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
+	<key>TabsHaveCloseButton</key>
+	<false/>
 	<key>ThreeFingerEmulates</key>
 	<false/>
 	<key>TmuxDashboardLimit</key>
@@ -4159,7 +4163,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.3.7beta1</string>
+	<string>3.3.10beta4</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

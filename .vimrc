@@ -123,7 +123,7 @@ let g:javascript_plugin_jsdoc = 1
 
 " Set current color scheme
 set background=dark
-colorscheme iceberg
+colorscheme xcodedark
 
 " Transparent-ish background
 hi Normal ctermbg=NONE
@@ -134,7 +134,7 @@ hi EndOfBuffer ctermbg=NONE
 " hi TabLineFill ctermfg=233 ctermbg=233
 " hi TabLine ctermfg=Black ctermbg=Black
 " hi TabLineSel ctermfg=Blue ctermbg=Black
-" hi StatusLine ctermbg=White ctermfg=Black
+hi StatusLine ctermbg=White ctermfg=234
 
 " Highlight any trailing whitespace
 highlight ExtraWhitespace ctermbg=61
@@ -175,7 +175,7 @@ let g:ale_lint_on_enter = 1
 let g:ale_completion_max_suggestions = 10
 highlight ALEError cterm=underline
 let g:ale_linters = {
-\    'typescript': ['eslint', 'tsserver'],
+\    'typescript': ['tsserver'],
 \    'javascript': ['eslint'],
 \    'jsx': ['eslint']
 \}
