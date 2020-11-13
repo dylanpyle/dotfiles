@@ -154,11 +154,17 @@ set shortmess+=I
 
 
 " ~~~ Coc ~~~
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gd :call CocAction('jumpDefinition', 'tab drop')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> = :CocDiagnostics<CR>
+autocmd FileType typescript let b:coc_root_patterns = ['.git', '.env']
+
+" Gross aliases for more memorable setup/teardown due to
+" https://github.com/fannheyward/coc-deno/issues/7
+command DenoSetup CocInstall coc-deno
+command DenoTeardown CocUninstall coc-deno
 
 " ~~~ Misc ~~~
 
