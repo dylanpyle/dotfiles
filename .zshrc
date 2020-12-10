@@ -72,7 +72,7 @@ gup() (
 )
 
 gpullo() {
-  git pull origin $(get_branch_name)
+  git pull origin $(get_branch_name) --set-upstream
 }
 
 gpr() {
@@ -142,15 +142,13 @@ export PATH=/usr/local/texlive/2017basic/bin/x86_64-darwin:$PATH
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin":$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$DENO_INSTALL/bin:$PATH"
-if [ -e /Users/dylan/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/dylan/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+export PATH="/Users/dylan/n/bin:$PATH"
 
 export EDITOR='nvim'
 
 bindkey -e
 bindkey '[C' forward-word
 bindkey '[D' backward-word
-
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
 export GPG_TTY=$(tty)
 

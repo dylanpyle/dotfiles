@@ -160,6 +160,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> = :CocDiagnostics<CR>
 autocmd FileType typescript let b:coc_root_patterns = ['.git', '.env']
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
 " Gross aliases for more memorable setup/teardown due to
 " https://github.com/fannheyward/coc-deno/issues/7
