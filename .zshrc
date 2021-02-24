@@ -127,7 +127,7 @@ local cwd='%{$fg[black]%}%~'
 local current_branch='%{$fg[black]%}$(get_branch_name)$(get_branch_status)'
 local prompt_color='%(?.%{$fg[green]%}.%{$fg[red]%})'
 PROMPT=$cwd' '$current_branch'
-'$prompt_color'↘ '%{$reset_color%}
+'$prompt_color'→ '%{$reset_color%}
 
 export DENO_INSTALL="/Users/dylan/.deno"
 

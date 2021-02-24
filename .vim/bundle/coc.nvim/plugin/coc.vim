@@ -69,6 +69,9 @@ function! CocPopupCallback(bufnr, arglist) abort
 endfunction
 
 function! CocAction(name, ...) abort
+  if !get(g:, 'coc_service_initialized', 0)
+    throw 'coc.nvim not ready when invoke CocAction "'.a:name.'"'
+  endif
   return coc#rpc#request(a:name, a:000)
 endfunction
 
@@ -284,7 +287,6 @@ function! s:Enable(initialize)
     if has('nvim-0.4.0') || has('patch-8.1.1719')
       autocmd CursorHold        * call coc#float#check_related()
     endif
-    autocmd WinLeave            * call coc#highlight#clear_match_group(0, '^CocHighlight')
     autocmd WinLeave            * call s:Autocmd('WinLeave', win_getid())
     autocmd WinEnter            * call s:Autocmd('WinEnter', win_getid())
     autocmd BufWinLeave         * call s:Autocmd('BufWinLeave', +expand('<abuf>'), bufwinid(+expand('<abuf>')))
@@ -401,17 +403,9 @@ function! s:ShowInfo()
       endif
     endif
     " check bundle
-    let file = s:root.'/bin/server.js'
-    if filereadable(file)
-      let file = s:root.'/lib/attach.js'
-      if !filereadable(file)
-        call add(lines, 'Error: javascript bundle not found, please compile the code of coc.nvim.')
-      endif
-    else
-      let file = s:root.'/build/index.js'
-      if !filereadable(file)
-        call add(lines, 'Error: javascript bundle not found, please remove coc.nvim folder and reinstall it.')
-      endif
+    let file = s:root.'/build/index.js'
+    if !filereadable(file)
+      call add(lines, 'Error: javascript bundle not found, please compile code of coc.nvim by esbuild.')
     endif
     if !empty(lines)
       belowright vnew
@@ -465,7 +459,8 @@ vnoremap <silent> <Plug>(coc-format-selected)       :<C-u>call       CocActionAs
 vnoremap <silent> <Plug>(coc-codeaction-selected)   :<C-u>call       CocActionAsync('codeAction',         visualmode())<CR>
 nnoremap <Plug>(coc-codeaction-selected)   :<C-u>set        operatorfunc=<SID>CodeActionFromSelected<CR>g@
 nnoremap <Plug>(coc-codeaction)            :<C-u>call       CocActionAsync('codeAction',         '')<CR>
-nnoremap <Plug>(coc-codeaction-line)       :<C-u>call       CocActionAsync('codeAction',         'n')<CR>
+nnoremap <Plug>(coc-codeaction-line)       :<C-u>call       CocActionAsync('codeAction',         'line')<CR>
+nnoremap <Plug>(coc-codeaction-cursor)     :<C-u>call       CocActionAsync('codeAction',         'cursor')<CR>
 nnoremap <silent> <Plug>(coc-rename)                :<C-u>call       CocActionAsync('rename')<CR>
 nnoremap <silent> <Plug>(coc-format-selected)       :<C-u>set        operatorfunc=<SID>FormatFromSelected<CR>g@
 nnoremap <silent> <Plug>(coc-format)                :<C-u>call       CocActionAsync('format')<CR>

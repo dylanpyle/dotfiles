@@ -31,41 +31,9 @@ function! coc#util#api_version() abort
   return s:vim_api_version
 endfunction
 
-function! coc#util#has_float()
-  echohl Error | echon 'coc#util#has_float is deprecated, use coc#float#has_float instead'  | echohl None
-  return coc#float#has_float()
-endfunction
-
-function! coc#util#float_hide()
-  echohl Error | echon 'coc#util#float_hide is deprecated, use coc#float#close_all instead' | echohl None
-  call coc#float#close_all()
-endfunction
-
-function! coc#util#float_jump()
-  echohl Error | echon 'coc#util#float_jump is deprecated, use coc#float#jump instead' | echohl None
-endfunction
-
-" close all float/popup window
-function! coc#util#close_floats() abort
-  echohl WarningMsg | echon 'coc#util#close_floats is deprecated, use coc#float#close_all instead'  | echohl None
-  call coc#float#close_all()
-endfunction
-
-function! coc#util#close_win(id)
-  echohl WarningMsg | echon 'coc#util#close_win is deprecated, use coc#float#close instead'  | echohl None
-  call coc#float#close(a:id)
-endfunction
-
-function! coc#util#float_scroll(forward)
-  echohl WarningMsg | echon 'coc#util#close_win is deprecated, use coc#float#scroll instead'  | echohl None
-  call coc#float#scroll(a:forward)
-endfunction
-
 " get cursor position
 function! coc#util#cursor()
-  let pos = getcurpos()
-  let content = pos[2] == 1 ? '' : getline('.')[0: pos[2] - 2]
-  return [pos[1] - 1, strchars(content)]
+  return [line('.') - 1, strchars(strpart(getline('.'), 0, col('.') - 1))]
 endfunction
 
 function! coc#util#path_replace_patterns() abort
@@ -129,20 +97,11 @@ function! coc#util#job_command()
     echohl Error | echom '[coc.nvim] "'.node.'" is not executable, checkout https://nodejs.org/en/download/' | echohl None
     return
   endif
-  if filereadable(s:root.'/bin/server.js') && filereadable(s:root.'/src/index.ts') && !get(g:, 'coc_force_bundle', 0)
-    if !filereadable(s:root.'/lib/attach.js')
-      echohl Error | echom '[coc.nvim] javascript bundle not found, please compile typescript code.' | echohl None
-      return
-    endif
-    "use javascript from lib
-    return [node] + get(g:, 'coc_node_args', ['--no-warnings']) + [s:root.'/bin/server.js']
-  else
-    if !filereadable(s:root.'/build/index.js')
-      echohl Error | echom '[coc.nvim] build/index.js not found, reinstall coc.nvim to fix it.' | echohl None
-      return
-    endif
-    return [node] + get(g:, 'coc_node_args', ['--no-warnings']) + [s:root.'/build/index.js']
+  if !filereadable(s:root.'/build/index.js')
+    echohl Error | echom '[coc.nvim] build/index.js not found, please compile the code by esbuild.' | echohl None
+    return
   endif
+  return [node] + get(g:, 'coc_node_args', ['--no-warnings']) + [s:root.'/build/index.js']
 endfunction
 
 function! coc#util#echo_hover(msg)
@@ -163,13 +122,21 @@ function! coc#util#execute(cmd)
 endfunction
 
 function! coc#util#jump(cmd, filepath, ...) abort
-  silent! normal! m'
+  if a:cmd != 'pedit'
+    silent! normal! m'
+  endif
   let path = a:filepath
   if (has('win32unix'))
     let path = substitute(a:filepath, '\v\\', '/', 'g')
   endif
   let file = fnamemodify(path, ":~:.")
-  exe a:cmd.' '.fnameescape(file)
+  if a:cmd == 'pedit'
+    let extra = empty(get(a:, 1, [])) ? '' : '+'.(a:1[0] + 1)
+    exe 'pedit '.extra.' '.fnameescape(file)
+    return
+  else
+    exe a:cmd.' '.fnameescape(file)
+  endif
   if !empty(get(a:, 1, []))
     let line = getline(a:1[0] + 1)
     " TODO need to use utf16 here
@@ -595,11 +562,53 @@ function! coc#util#highlight_options()
         \}
 endfunction
 
-" used by vim
-function! coc#util#get_content(bufnr)
-  if !bufloaded(a:bufnr) | return '' | endif
+function! coc#util#set_lines(bufnr, replacement, start, end) abort
+  if !s:is_vim
+    call nvim_buf_set_lines(a:bufnr, a:start, a:end, 0, a:replacement)
+  else
+    call coc#api#notify('buf_set_lines', [a:bufnr, a:start, a:end, 0, a:replacement])
+  endif
   return {
-        \ 'content': join(getbufline(a:bufnr, 1, '$'), "\n"),
+        \ 'lines': getbufline(a:bufnr, 1, '$'),
+        \ 'changedtick': getbufvar(a:bufnr, 'changedtick')
+        \ }
+endfunction
+
+function! coc#util#change_lines(bufnr, list) abort
+  if !bufloaded(a:bufnr) | return v:null | endif
+  undojoin
+  if exists('*setbufline')
+    for [lnum, line] in a:list
+      call setbufline(a:bufnr, lnum + 1, line)
+    endfor
+  elseif a:bufnr == bufnr('%')
+    for [lnum, line] in a:list
+      call setline(lnum + 1, line)
+    endfor
+  else
+    let bufnr = bufnr('%')
+    exe 'noa buffer '.a:bufnr
+    for [lnum, line] in a:list
+      call setline(lnum + 1, line)
+    endfor
+    exe 'noa buffer '.bufnr
+  endif
+  return {
+        \ 'lines': getbufline(a:bufnr, 1, '$'),
+        \ 'changedtick': getbufvar(a:bufnr, 'changedtick')
+        \ }
+endfunction
+
+
+" used by vim
+function! coc#util#get_buf_lines(bufnr, changedtick)
+  if !bufloaded(a:bufnr) | return '' | endif
+  let changedtick = getbufvar(a:bufnr, 'changedtick')
+  if changedtick == a:changedtick
+    return v:null
+  endif
+  return {
+        \ 'lines': getbufline(a:bufnr, 1, '$'),
         \ 'changedtick': getbufvar(a:bufnr, 'changedtick')
         \ }
 endfunction
@@ -841,26 +850,6 @@ endfunction
 function! coc#util#set_buf_var(bufnr, name, val) abort
   if !bufloaded(a:bufnr) | return | endif
   call setbufvar(a:bufnr, a:name, a:val)
-endfunction
-
-function! coc#util#change_lines(bufnr, list) abort
-  if !bufloaded(a:bufnr) | return | endif
-  if exists('*setbufline')
-    for [lnum, line] in a:list
-      call setbufline(a:bufnr, lnum + 1, line)
-    endfor
-  elseif a:bufnr == bufnr('%')
-    for [lnum, line] in a:list
-      call setline(lnum + 1, line)
-    endfor
-  else
-    let bufnr = bufnr('%')
-    exe 'noa buffer '.a:bufnr
-    for [lnum, line] in a:list
-      call setline(lnum + 1, line)
-    endfor
-    exe 'noa buffer '.bufnr
-  endif
 endfunction
 
 function! coc#util#unmap(bufnr, keys) abort

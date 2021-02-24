@@ -410,7 +410,7 @@
     },
     "suggest.triggerCompletionWait": {
       "type": "integer",
-      "default": 50,
+      "default": 100,
       "minimum": 30,
       "maximum": 500,
       "description": "Wait time between text change and completion start, cancel completion when text changed during wait."
@@ -542,11 +542,6 @@
       "description": "Enable diagnostic refresh on insert mode, default false.",
       "default": false
     },
-    "diagnostic.refreshAfterSave": {
-      "type": "boolean",
-      "description": "Only refresh diagnostics after save, default false.",
-      "default": false
-    },
     "diagnostic.displayByAle": {
       "type": "boolean",
       "description": "Use Ale for display diagnostics in vim, will disable coc for display diagnostics, restart required on change.",
@@ -665,9 +660,9 @@
     },
     "signature.triggerSignatureWait": {
       "type": "integer",
-      "default": 100,
-      "minimum": 50,
-      "maximum": 300,
+      "default": 500,
+      "minimum": 200,
+      "maximum": 1000,
       "description": "Timeout for trigger signature help, in miliseconds."
     },
     "signature.target": {
@@ -805,11 +800,18 @@
         "type": "string"
       }
     },
-    "workspace.progressTarget": {
-      "type": "string",
-      "default": "float",
-      "description": "Target to show workDoneProgress, default is floating window when possible.",
-      "enum": ["statusline", "float"]
+    "workspace.bottomUpFiletypes": {
+      "type": "array",
+      "default": [],
+      "description": "Filetypes that should have workspace folder should resolved from base directory of file.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "workspace.workspaceFolderCheckCwd": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether the cwd directory should be checked first when resolving workspace folder."
     },
     "list.indicator": {
       "type": "string",
@@ -920,7 +922,7 @@
     "list.source.symbols.excludes": {
       "type": "array",
       "default": [],
-      "description": "Patterns of mimimatch for filepath to execlude from symbols list.",
+      "description": "Patterns of minimatch for filepath to execlude from symbols list.",
       "items": {
         "type": "string"
       }
@@ -1018,11 +1020,6 @@
         "type": "string"
       }
     },
-    "coc.preferences.formatOnInsertLeave": {
-      "type": "boolean",
-      "description": "Trigger format on type when insert leave by send \n to the server.",
-      "default": false
-    },
     "coc.preferences.enableFloatHighlight": {
       "type": "boolean",
       "description": "Enable highlight for floating window.",
@@ -1044,7 +1041,7 @@
     "coc.preferences.jumpCommand": {
       "type": "string",
       "description": "Command used for location jump, like goto definition, goto references etc.",
-      "enum": ["edit", "split", "vsplit", "tabe", "drop", "tab drop"],
+      "enum": ["edit", "split", "vsplit", "tabe", "drop", "tab drop", "pedit"],
       "default": "edit"
     },
     "coc.preferences.messageLevel": {
@@ -1090,7 +1087,7 @@
     },
     "coc.preferences.promptInput": {
       "type": "boolean",
-      "description": "Use prompt buffer in float window for user input, works on neovim >= 0.4.0 only.",
+      "description": "Use prompt buffer in float window for user input.",
       "default": true
     },
     "coc.preferences.enableMarkdown": {

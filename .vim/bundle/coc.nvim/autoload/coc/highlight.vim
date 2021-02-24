@@ -12,27 +12,29 @@ if has('nvim-0.5.0')
 endif
 
 " highlight LSP range,
-" TODO don't know how to count UTF16 code point, should work most cases.
-function! coc#highlight#range(bufnr, key, hlGroup, range) abort
+function! coc#highlight#ranges(bufnr, key, hlGroup, ranges) abort
   let bufnr = a:bufnr == 0 ? bufnr('%') : a:bufnr
-  if !bufloaded(bufnr)
+  if !bufloaded(bufnr) || !exists('*getbufline')
     return
   endif
   let srcId = s:create_namespace(a:key)
-  let start = a:range['start']
-  let end = a:range['end']
-  for lnum in range(start['line'] + 1, end['line'] + 1)
-    let arr = getbufline(bufnr, lnum)
-    let line = empty(arr) ? '' : arr[0]
-    if empty(line)
-      continue
-    endif
-    let colStart = lnum == start['line'] + 1 ? strlen(strcharpart(line, 0, start['character'])) : 0
-    let colEnd = lnum == end['line'] + 1 ? strlen(strcharpart(line, 0, end['character'])) : -1
-    if colStart == colEnd
-      continue
-    endif
-    call coc#highlight#add_highlight(bufnr, srcId, a:hlGroup, lnum - 1, colStart, colEnd)
+  for range in a:ranges
+    let start = range['start']
+    let end = range['end']
+    for lnum in range(start['line'] + 1, end['line'] + 1)
+      let arr = getbufline(bufnr, lnum)
+      let line = empty(arr) ? '' : arr[0]
+      if empty(line)
+        continue
+      endif
+      " TODO don't know how to count UTF16 code point, should work most cases.
+      let colStart = lnum == start['line'] + 1 ? strlen(strcharpart(line, 0, start['character'])) : 0
+      let colEnd = lnum == end['line'] + 1 ? strlen(strcharpart(line, 0, end['character'])) : -1
+      if colStart == colEnd
+        continue
+      endif
+      call coc#highlight#add_highlight(bufnr, srcId, a:hlGroup, lnum - 1, colStart, colEnd)
+    endfor
   endfor
 endfunction
 
@@ -98,7 +100,8 @@ endfunction
 " }
 function! coc#highlight#highlight_lines(winid, blocks) abort
   let currwin = win_getid()
-  if has('nvim') && currwin != a:winid
+  let switch = has('nvim') && currwin != a:winid
+  if switch
     noa call nvim_set_current_win(a:winid)
   endif
   let defined = []
@@ -111,20 +114,29 @@ function! coc#highlight#highlight_lines(winid, blocks) abort
     if !empty(hlGroup)
       call s:execute(a:winid, 'syntax region '.hlGroup.' start=/\%'.start.'l/ end=/\%'.end.'l/')
     else
-      let filetype = matchstr(filetype, '\v[^.]*')
+      let filetype = matchstr(filetype, '\v^\w+')
+      if empty(filetype) || index(get(g:, 'coc_markdown_disabled_languages', []), filetype) != -1
+        continue
+      endif
       if index(defined, filetype) == -1
         call s:execute(a:winid, 'syntax include @'.toupper(filetype).' syntax/'.filetype.'.vim')
+        if has('nvim')
+          unlet! b:current_syntax
+        elseif exists('*win_execute')
+          call win_execute(a:winid, 'unlet! b:current_syntax')
+        endif
         call add(defined, filetype)
       endif
       call s:execute(a:winid, 'syntax region CodeBlock'.region_id.' start=/\%'.start.'l/ end=/\%'.end.'l/ contains=@'.toupper(filetype))
       let region_id = region_id + 1
     endif
   endfor
-  if has('nvim')
+  if switch
     noa call nvim_set_current_win(currwin)
   endif
 endfunction
 
+" Copmpose hlGroups with foreground and background colors.
 function! coc#highlight#compose_hlgroup(fgGroup, bgGroup) abort
   let hlGroup = 'Fg'.a:fgGroup.'Bg'.a:bgGroup
   if a:fgGroup == a:bgGroup

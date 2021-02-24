@@ -140,14 +140,15 @@ function! coc#list#scroll_preview(dir) abort
 endfunction
 
 function! coc#list#restore(winid, height)
-  let res = win_gotoid(a:winid)
-  if res == 0 | return | endif
-  if winnr('$') == 1
-    return
-  endif
-  execute 'resize '.a:height
-  if s:is_vim
-    redraw
+  if has('nvim')
+    if nvim_win_is_valid(a:winid)
+      call nvim_win_set_height(a:winid, a:height)
+    endif
+  else
+    if exists('win_execute')
+      call win_execute(a:winid, 'noa resize '.a:height, 'silent!')
+      redraw
+    endif
   endif
 endfunction
 
@@ -217,7 +218,7 @@ endfunction
 " config.maxHeight - (optional) max height of window, valid for 'below' & 'top' position.
 function! coc#list#preview(lines, config) abort
   if s:is_vim && !exists('*win_execute')
-    echoerr 'win_execute function required for preview, please upgrade your vim.'
+    throw 'win_execute function required for preview, please upgrade your vim.'
     return
   endif
   let name = fnamemodify(get(a:config, 'name', ''), ':.')
@@ -258,7 +259,7 @@ function! coc#list#preview(lines, config) abort
     let curr = win_getid()
     if change
       if original && win_id2win(original)
-        call win_gotoid(original)
+        noa call win_gotoid(original)
       else
         noa wincmd t
       endif

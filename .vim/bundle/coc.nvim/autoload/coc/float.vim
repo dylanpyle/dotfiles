@@ -64,7 +64,6 @@ endfunction
 " - close: (optional) show close button when is 1.
 " - buttons: (optional) array of button text for create buttons at bottom.
 function! coc#float#create_float_win(winid, bufnr, config) abort
-  call coc#float#close_auto_hide_wins(a:winid)
   let lines = get(a:config, 'lines', v:null)
   let bufnr = coc#float#create_buf(a:bufnr, lines, 'hide')
   " use exists
@@ -482,6 +481,7 @@ function! coc#float#create_cursor_float(winid, bufnr, lines, config) abort
   let lines = map(a:lines, {_, s -> s =~# '^—' ? repeat('—', width) : s})
   let config = extend({'lines': lines, 'relative': 'cursor'}, a:config)
   let config = extend(config, dimension)
+  call coc#float#close_auto_hide_wins(a:winid)
   let res = coc#float#create_float_win(a:winid, a:bufnr, config)
   if empty(res)
     return v:null
@@ -550,6 +550,8 @@ function! coc#float#create_prompt_win(title, default, opts) abort
     exe 'nnoremap <silent><buffer> <esc> :call coc#float#close('.winid.')<CR>'
     exe 'inoremap <silent><expr><nowait><buffer> <cr> "\<C-r>=coc#float#prompt_insert(getline(''.''))\<cr>\<esc>"'
     call feedkeys('A', 'in')
+  else
+    call setbufvar(bufnr, '&termwinkey', '<C-\>')
   endif
   return [bufnr, winid]
 endfunction
@@ -654,7 +656,11 @@ function! coc#float#scroll(forward, ...)
     return ''
   endif
   for winid in winids
-    call coc#float#scroll_win(winid, a:forward, amount)
+    if s:is_vim
+      call coc#float#scroll_win(winid, a:forward, amount)
+    else
+      call timer_start(0, { -> coc#float#scroll_win(winid, a:forward, amount)})
+    endif
   endfor
   return mode() =~ '^i' || mode() ==# 'v' ? "" : "\<Ignore>"
 endfunction
@@ -797,7 +803,7 @@ function! coc#float#check_related() abort
     endif
     for id in popup_list()
       let target = getwinvar(id, 'target_winid', 0)
-      if target && !s:popup_visible(target)
+      if (target && !s:popup_visible(target)) || getwinvar(id, 'kind', '') == 'pum'
         call add(invalids, id)
       endif
     endfor
@@ -806,11 +812,13 @@ function! coc#float#check_related() abort
       let target = getwinvar(i, 'target_winid', 0)
       if target && !nvim_win_is_valid(target)
         call add(invalids, win_getid(i))
+      elseif getwinvar(i, 'kind', '') == 'pum'
+        call add(invalids, win_getid(i))
       endif
     endfor
   endif
   for id in invalids
-    call s:close_win(id)
+    call coc#float#close(id)
   endfor
 endfunction
 
@@ -836,11 +844,11 @@ function! coc#float#get_config_cursor(lines, config) abort
   if vh <= 0
     return v:null
   endif
-  let maxWidth = coc#helper#min(get(a:config, 'maxWidth', 80), &columns - 1)
+  let maxWidth = coc#helper#min(get(a:config, 'maxWidth', &columns - 1), &columns - 1)
   if maxWidth < 3
     return v:null
   endif
-  let maxHeight = coc#helper#min(get(a:config, 'maxHeight', 80), vh)
+  let maxHeight = coc#helper#min(get(a:config, 'maxHeight', vh), vh)
   let ch = 0
   let width = coc#helper#min(40, strdisplaywidth(title)) + 3
   for line in a:lines
@@ -896,18 +904,19 @@ function! coc#float#create_pum_float(winid, bufnr, lines, config) abort
   let lines = map(a:lines, {_, s -> s =~# '^—' ? repeat('—', width - 2 + (s:is_vim && ch > height ? -1 : 0)) : s})
   let opts = {
         \ 'lines': lines,
-        \ 'autohide': 1,
         \ 'relative': 'editor',
         \ 'col': showRight ? pumbounding['col'] + pw : pumbounding['col'] - width - 1,
         \ 'row': pumbounding['row'],
         \ 'height': height,
         \ 'width': width - 2 + (s:is_vim && ch > height ? -1 : 0),
         \ }
+  call coc#float#close_auto_hide_wins(a:winid)
   let res = coc#float#create_float_win(a:winid, a:bufnr, opts)
   if empty(res)
     return v:null
   endif
   call coc#highlight#add_highlights(res[0], a:config['codes'], a:config['highlights'])
+  call setwinvar(res[0], 'kind', 'pum')
   redraw
   if has('nvim')
     call coc#float#nvim_scrollbar(res[0])
@@ -947,6 +956,7 @@ function! coc#float#prompt_confirm(title, cb) abort
     let width = coc#helper#min(maxWidth, strdisplaywidth(text))
     let maxHeight = &lines - &cmdheight - 1
     let height = coc#helper#min(maxHeight, float2nr(ceil(str2float(string(strdisplaywidth(text)))/width)))
+    call coc#float#close_auto_hide_wins()
     let arr =  coc#float#create_float_win(0, s:prompt_win_bufnr, {
           \ 'col': &columns/2 - width/2 - 1,
           \ 'row': maxHeight/2 - height/2 - 1,
@@ -1181,6 +1191,7 @@ function! coc#float#create_dialog(lines, config) abort
     let opts['cursorline'] = 1
   endif
   let bufnr = coc#float#create_buf(0, a:lines)
+  call coc#float#close_auto_hide_wins()
   let res =  coc#float#create_float_win(0, bufnr, opts)
   if empty(res)
     return
@@ -1254,6 +1265,7 @@ function! coc#float#create_menu(lines, config) abort
   endif
   let dimension = coc#float#get_config_cursor(a:lines, opts)
   call extend(opts, dimension)
+  call coc#float#close_auto_hide_wins()
   let res = coc#float#create_float_win(0, s:prompt_win_bufnr, opts)
   if empty(res)
     return
