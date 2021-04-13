@@ -27,13 +27,15 @@ function! coc#float#has_float() abort
 endfunction
 
 function! coc#float#close_all() abort
-  if !has('nvim') && exists('*popup_clear')
-    call popup_clear()
-    return
-  endif
   let winids = coc#float#get_float_win_list()
   for id in winids
-    call coc#float#close(id)
+    try
+      if getwinvar(id, 'float')
+        call coc#float#close(id)
+      endif
+    catch /E5555:/
+      " ignore
+    endtry
   endfor
 endfunction
 
@@ -166,7 +168,7 @@ function! coc#float#create_float_win(winid, bufnr, config) abort
   call setwinvar(winid, '&colorcolumn', 0)
   call setwinvar(winid, '&wrap', 1)
   call setwinvar(winid, '&linebreak', 1)
-  call setwinvar(winid, '&conceallevel', 2)
+  call setwinvar(winid, '&conceallevel', 0)
   let g:coc_last_float_win = winid
   call coc#util#do_autocmd('CocOpenFloat')
   return [winid, bufnr]
@@ -501,7 +503,7 @@ function! coc#float#create_prompt_win(title, default, opts) abort
   call coc#float#close_auto_hide_wins()
   " Calculate col
   let curr = win_screenpos(winnr())[1] + wincol() - 2
-  let width = coc#helper#min(max([strdisplaywidth(a:title) + 2, s:prompt_win_width]), &columns - 2)
+  let width = coc#helper#min(max([strdisplaywidth(a:default) + 2, s:prompt_win_width]), &columns - 2)
   if width == &columns - 2
     let col = 0 - curr
   else
@@ -1240,8 +1242,8 @@ function! coc#float#create_buf(bufnr, ...) abort
     if has('nvim')
       call nvim_buf_set_lines(bufnr, 0, -1, v:false, lines)
     else
-      call deletebufline(bufnr, 1, '$')
-      call setbufline(bufnr, 1, lines)
+      silent call deletebufline(bufnr, 1, '$')
+      silent call setbufline(bufnr, 1, lines)
     endif
   endif
   return bufnr

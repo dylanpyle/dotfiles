@@ -42,3 +42,5 @@
 	email = me@dylanpyle.com
 	name = Dylan Pyle
 	signingkey = 11111111
+[init]
+	defaultBranch = main

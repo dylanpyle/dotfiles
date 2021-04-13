@@ -514,6 +514,26 @@ Built-in configurations:~
 
 	Print num lines of trailing context after each match, default: `3`
 
+							*coc-config-hover*
+"hover.target":~
+
+	Target to show hover information, default is floating window when possible.
+
+	Valid options: ["preview", "echo", "float"]
+
+"hover.floatMaxWidth":~
+
+	Maximum width of hover float window, not bigger than 80.
+
+"hover.floatMaxHeight":~
+
+	Maximum height fo hover float window.
+
+"hover.autoHide":~
+
+	Automatically hide hover float window on CursorMove or InsertEnter,
+	default `true`.
+
 							*coc-config-dialog*
 "dialog.maxWidth": ~
 
@@ -727,12 +747,6 @@ Built-in configurations:~
 
 	Default: `"SNIP"`
 
-"coc.preferences.hoverTarget":~
-
-	Target to show hover information, default is floating window when possible.
-
-	Valid options: ["preview", "echo", "float"]
-
 "coc.preferences.previewAutoClose":~
 
 	Auto close preview window of hover upon cursor move, default: `true`
@@ -837,6 +851,11 @@ Built-in configurations:~
 	Not open split window with update status when performing auto update.
 
 						*coc-config-cursors*
+
+"coc.preferences.willSaveHandlerTimeout"~
+
+	Will save handler timeout, default: `500`
+
 "cursors.cancelKey":~
 
 	Key used for cancel cursors session, default: `<esc>`
@@ -879,7 +898,7 @@ Built-in configurations:~
 	- "env": Environment variables for child process.
 
 	- "settings": Settings for languageserver, received on server
-	  initialiation.
+	  initialization.
 
 	- "trace.server": Trace level of communication between server and
 	  client that showed with output channel.
@@ -2365,8 +2384,8 @@ AUTOCMD							*coc-autocmds*
 
 	For example, to disable auto preview of location list, use:
 >
-	let g:coc_enable_locationlist = 0 autocmd User CocLocationsChange
-	CocList --normal location
+	let g:coc_enable_locationlist = 0
+	autocmd User CocLocationsChange CocList --normal location
 <
 						*CocNvimInit*
 :autocmd User CocNvimInit {command}
@@ -2632,7 +2651,9 @@ CocMenuSel						*CocMenuSel*
 
   Default: `hi default link CocMenuSel PmenuSel`
 
-  The highlight used for selected menu item, works on neovim only.
+  The highlight used for current menu item in menu dialog,
+  works on neovim only since vim doesn't support change highlight
+  group of cursorline inside popup.
 
 CocListMode						*CocListMode*
 

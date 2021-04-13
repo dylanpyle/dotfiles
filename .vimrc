@@ -76,6 +76,9 @@ set tw=80
 " Enable automatic text wrapping
 set fo+=t
 
+" Show tabs
+set list
+set listchars=tab:▸·
 
 " ~~~ Searching ~~~
 
