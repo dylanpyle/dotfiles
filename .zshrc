@@ -157,3 +157,5 @@ source ~/.env.private
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 if [ -e /Users/dylan/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/dylan/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+export N_PREFIX='/Users/dylan/n'

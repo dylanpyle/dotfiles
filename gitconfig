@@ -1,46 +1,46 @@
 [alias]
-	dad = add
-	br = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:black)%(committerdate:short) %(color:blue)%(refname:short) %(color:black)%(authorname)' --count=20 --no-merge
-	pending = log origin/production..origin/master --merges --pretty=format:'%b (%an)'
-	st = status
-	ci = commit
-	c = checkout
-	co = checkout
-	df = diff
-	lg = log -p
-	rb = rebase
-	d = difftool
-	pwd = diff --stat master
+  dad = add
+  br = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:black)%(committerdate:short) %(color:blue)%(refname:short) %(color:black)%(authorname)' --count=20 --no-merge
+  pending = log origin/production..origin/master --merges --pretty=format:'%b (%an)'
+  st = status
+  ci = commit
+  c = checkout
+  co = checkout
+  df = diff
+  lg = log -p
+  rb = rebase
+  d = difftool
+  s = diff --stat main
   ds = diff --stat
-	db = branch -D
-	versions = tag --sort=-v:refname
-	identity = "! git config user.name \"$(git config user.$1.name)\"; git config user.email \"$(git config user.$1.email)\"; git config user.signingkey \"$(git config user.$1.signingkey)\"; :"
+  db = branch -D
+  versions = tag --sort=-v:refname
+  identity = "! git config user.name \"$(git config user.$1.name)\"; git config user.email \"$(git config user.$1.email)\"; git config user.signingkey \"$(git config user.$1.signingkey)\"; :"
   sh = "!zsh -c"
 [commit]
-	gpgsign = true
+  gpgsign = true
 [push]
-	default = current
+  default = current
 [core]
-	excludesfile = /Users/dylan/.gitignore_global
-	ignorecase = false
+  excludesfile = /Users/dylan/.gitignore_global
+  ignorecase = false
 [diff]
-	tool = vimdiff
+  tool = vimdiff
 [difftool]
-	prompt = false
-	trustExitCode = true
+  prompt = false
+  trustExitCode = true
 [pull]
-	default = current
+  default = current
 [protocol]
-	version = 2
+  version = 2
 [user]
-	useConfigOnly = true
+  useConfigOnly = true
 [user "cala"]
-	name = Dylan Pyle
-	email = d@ca.la
-	signingkey = ca1aca1a
+  name = Dylan Pyle
+  email = d@ca.la
+  signingkey = ca1aca1a
 [user "personal"]
-	email = me@dylanpyle.com
-	name = Dylan Pyle
-	signingkey = 11111111
+  email = me@dylanpyle.com
+  name = Dylan Pyle
+  signingkey = 11111111
 [init]
-	defaultBranch = main
+  defaultBranch = main
