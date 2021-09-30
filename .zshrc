@@ -134,6 +134,7 @@ export DENO_INSTALL="/Users/dylan/.deno"
 export PATH=/usr/local/opt/findutils/libexec/gnubin:$PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
+export PATH=/opt/homebrew/bin:$PATH
 export PATH=~/bin:$PATH
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH=~/.fastlane/bin:$PATH

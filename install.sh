@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p ~/.config/nvim
+mkdir -p ~/.config
 mkdir -p ~/.gnupg
 
 ln -s ~/dotfiles/.curlrc ~/.curlrc
