@@ -131,19 +131,24 @@ PROMPT=$cwd' '$current_branch'
 
 export DENO_INSTALL="/Users/dylan/.deno"
 
-export PATH=/usr/local/opt/findutils/libexec/gnubin:$PATH
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=/opt/homebrew/bin:$PATH
-export PATH=~/bin:$PATH
-export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
+if [[ $NIX_STORE == '' ]]; then
+  # If we're inside a nix shell, don't set certain paths that we expect that to
+  # provide (e.g. findutils, node, homebrew)
+  export PATH=/usr/local/opt/findutils/libexec/gnubin:$PATH
+  export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+  export PATH=/usr/local/bin:$PATH
+  export PATH=/opt/homebrew/bin:$PATH
+  export PATH="/Users/dylan/n/bin:$PATH"
+  export PATH=~/bin:$PATH
+  export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
+fi
+
 export PATH=~/.fastlane/bin:$PATH
 export PATH=~/Library/Python/3.6/bin:$PATH
 export PATH=/usr/local/texlive/2017basic/bin/x86_64-darwin:$PATH
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin":$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$DENO_INSTALL/bin:$PATH"
-export PATH="/Users/dylan/n/bin:$PATH"
 
 export EDITOR='nvim'
 
