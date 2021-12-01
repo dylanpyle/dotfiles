@@ -119,6 +119,12 @@ get_branch_name() {
   fi
 }
 
+get_nix_status() {
+  if [[ $NIX_STORE != '' ]]; then
+    echo ' (nix)'
+  fi
+}
+
 replace() {
   git grep -l $1 | xargs sed -i '' -e "s/$1/$2/g"
 }
@@ -126,7 +132,7 @@ replace() {
 local cwd='%{$fg[black]%}%~'
 local current_branch='%{$fg[black]%}$(get_branch_name)$(get_branch_status)'
 local prompt_color='%(?.%{$fg[green]%}.%{$fg[red]%})'
-PROMPT=$cwd' '$current_branch'
+PROMPT=$cwd' '$current_branch'$(get_nix_status)
 '$prompt_color'→ '%{$reset_color%}
 
 export DENO_INSTALL="/Users/dylan/.deno"
