@@ -120,8 +120,8 @@ get_branch_name() {
 }
 
 get_nix_status() {
-  if [[ $NIX_STORE != '' ]]; then
-    echo ' (nix)'
+  if [[ $IN_NIX_SHELL != '' ]]; then
+    echo 'nix'
   fi
 }
 
@@ -132,12 +132,12 @@ replace() {
 local cwd='%{$fg[black]%}%~'
 local current_branch='%{$fg[black]%}$(get_branch_name)$(get_branch_status)'
 local prompt_color='%(?.%{$fg[green]%}.%{$fg[red]%})'
-PROMPT=$cwd' '$current_branch'$(get_nix_status)
-'$prompt_color'→ '%{$reset_color%}
+PROMPT=$cwd' '$current_branch'
+'$prompt_color'$(get_nix_status)→ '%{$reset_color%}
 
 export DENO_INSTALL="/Users/dylan/.deno"
 
-if [[ $NIX_STORE == '' ]]; then
+if [[ $IN_NIX_SHELL == '' ]]; then
   # If we're inside a nix shell, don't set certain paths that we expect that to
   # provide (e.g. findutils, node, homebrew)
   export PATH=/usr/local/opt/findutils/libexec/gnubin:$PATH
@@ -155,6 +155,7 @@ export PATH=/usr/local/texlive/2017basic/bin/x86_64-darwin:$PATH
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin":$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$DENO_INSTALL/bin:$PATH"
+export PATH="/nix/var/nix/profiles/default/bin:$PATH"
 
 export EDITOR='nvim'
 
