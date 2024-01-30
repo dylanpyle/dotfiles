@@ -31,7 +31,7 @@ alias o='open'
 alias f='git grep -Iin'
 alias ff="ggrep -IER --color --exclude-dir 'node_modules' --exclude-dir '.*'"
 alias fff='mdfind -onlyin .'
-alias serve='python -m SimpleHTTPServer'
+alias serve='python3 -m http.server'
 alias tmux='TERM=screen-256color-bce tmux'
 alias note='(echo && date && cat) >> ~/notes.txt'
 alias bell="echo -ne '\007'"
@@ -47,18 +47,6 @@ alias cput='curl -sX PUT -H "Content-Type: application/json" '
 alias cpatch='curl -sX PATCH -H "Content-Type: application/json" '
 alias cdelete='curl -sX DELETE '
 
-grb() {
-  git rebase -i HEAD~$1
-}
-
-# Create a new branch off the latest main changes
-gnb() (
-  set -e
-  git co main
-  git pull
-  git co -b $1
-)
-
 alias gpull='git pull --ff-only'
 alias gpush='git push -u'
 
@@ -72,7 +60,7 @@ gup() (
 )
 
 gpullo() {
-  git pull origin $(get_branch_name) --set-upstream
+  git pull origin $(get_branch_name)
 }
 
 gpr() {
@@ -169,6 +157,10 @@ source ~/.env.private
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-if [ -e /Users/dylan/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/dylan/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
 export N_PREFIX='/Users/dylan/n'
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/dylan/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dylan/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/dylan/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dylan/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

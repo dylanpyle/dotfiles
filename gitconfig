@@ -14,7 +14,6 @@
   ds = diff --stat
   db = branch -D
   versions = tag --sort=-v:refname
-  identity = "! git config user.name \"$(git config user.$1.name)\"; git config user.email \"$(git config user.$1.email)\"; git config user.signingkey \"$(git config user.$1.signingkey)\"; :"
   sh = "!zsh -c"
 [commit]
   gpgsign = true
@@ -34,11 +33,6 @@
   version = 2
 [user]
   useConfigOnly = true
-[user "cala"]
-  name = Dylan Pyle
-  email = d@ca.la
-  signingkey = ca1aca1a
-[user "personal"]
   email = me@dylanpyle.com
   name = Dylan Pyle
   signingkey = 11111111
