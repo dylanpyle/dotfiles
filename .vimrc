@@ -1,15 +1,15 @@
-execute pathogen#infect()
+call plug#begin()
+Plug 'lunacookies/vim-colors-xcode'
+Plug 'preservim/nerdtree'
+Plug 'kien/ctrlp.vim'
+call plug#end()
 
-
-" ~~~ Key mappings ~~~
+" # Key mappings
 
 let mapleader=','
 
 " Allow ; in place of :
 noremap ; :
-
-" Use shift-tab for c-x c-o autocomplete
-inoremap <S-Tab> <C-x><C-o>
 
 " <Leader>y and <Leader>p for copy/paste to system clipboard
 vmap <Leader>y "*y<CR>
@@ -39,21 +39,8 @@ noremap <Bar> :CtrlPBuffer<CR>
 " Open CtrlP in file mode (switch with c-f and c-b)
 let g:ctrlp_cmd = 'CtrlP'
 
-" Allow ctrl+@ on CtrlP buffer list to delete buffers
-let g:ctrlp_buffer_func = { 'enter': 'CtrlPMappings' }
 
-function! CtrlPMappings()
-  nnoremap <buffer> <silent> <C-l> :call <sid>DeleteBuffer()<cr>
-endfunction
-
-function! s:DeleteBuffer()
-  let path = fnamemodify(getline('.')[2:], ':p')
-  let bufn = matchstr(path, '\v\d+\ze\*No Name')
-  exec "bd" bufn ==# "" ? path : bufn
-  exec "norm \<F5>"
-endfunction
-
-" ~~~ Indentation options ~~~
+" # Indentation options
 
 " Display tabs as 2 characters wide
 set tabstop=2
@@ -80,7 +67,8 @@ set fo+=t
 set list
 set listchars=tab:▸·
 
-" ~~~ Searching ~~~
+
+" # Searching
 
 " Default to case-insensitive search
 set ignorecase
@@ -99,7 +87,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*/bower_components/*
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 
-" ~~~ Display options ~~~
+" # Display options
 
 " Show line numbers
 set number
@@ -111,9 +99,6 @@ set cc=80
 syntax on
 filetype plugin indent on
 
-" Allow JSDoc highlighting
-let g:javascript_plugin_jsdoc = 1
-
 " Set current color scheme
 set background=dark
 colorscheme xcodedark
@@ -124,9 +109,6 @@ hi LineNr ctermbg=NONE
 hi EndOfBuffer ctermbg=NONE
 
 " Update tab bar & status bar colors
-" hi TabLineFill ctermfg=233 ctermbg=233
-" hi TabLine ctermfg=Black ctermbg=Black
-" hi TabLineSel ctermfg=Blue ctermbg=Black
 hi StatusLine ctermbg=White ctermfg=234
 
 " Highlight any trailing whitespace
@@ -156,21 +138,7 @@ set statusline+=\ %r%w%h " Any flags (readonly etc)
 set shortmess+=I
 
 
-" ~~~ Coc ~~~
-nmap <silent> gd :call CocAction('jumpDefinition', 'tab drop')<CR>
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> = :CocDiagnostics<CR>
-autocmd FileType typescript let b:coc_root_patterns = ['.git', '.env']
-autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
-
-" Gross aliases for more memorable setup/teardown due to
-" https://github.com/fannheyward/coc-deno/issues/7
-command DenoSetup CocInstall coc-deno
-command DenoTeardown CocUninstall coc-deno
-
-" ~~~ Misc ~~~
+" # Misc
 
 " Mouse
 set mouse=n
