@@ -1,9 +1,53 @@
 call plug#begin()
 Plug 'lunacookies/vim-colors-xcode'
-Plug 'preservim/nerdtree'
-Plug 'kien/ctrlp.vim'
-Plug 'neovim/nvim-lspconfig'
+Plug 'preservim/nerdtree', { 'tag': '7.1.1' }
+Plug 'kien/ctrlp.vim', { 'tag': '1.79' }
+Plug 'neovim/nvim-lspconfig', { 'tag': 'v0.1.7' }
+Plug 'github/copilot.vim', { 'tag': 'v1.17.0' }
 call plug#end()
+
+" LSP integration. Note: Lua time!
+lua << EOF
+  vim.g.markdown_fenced_languages = {
+    "ts=typescript"
+  }
+
+  local nvim_lsp = require('lspconfig')
+
+  nvim_lsp.denols.setup{}
+
+  nvim_lsp.denols.setup {
+    on_attach = on_attach,
+    root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+  }
+
+  nvim_lsp.tsserver.setup {
+    on_attach = on_attach,
+    root_dir = nvim_lsp.util.root_pattern("package.json"),
+    single_file_support = false
+  }
+
+  vim.keymap.set('n', '[e', vim.diagnostic.open_float)
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+  vim.keymap.set('n', '=', vim.diagnostic.setloclist)
+
+  -- Use LspAttach autocommand to only map the following keys
+  -- after the language server attaches to the current buffer
+  vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(ev)
+      -- Enable completion triggered by <c-x><c-o>
+      vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+      local opts = { buffer = ev.buf }
+      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+      vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    end,
+  })
+EOF
+
 
 " # Key mappings
 
@@ -54,6 +98,9 @@ set smarttab
 
 " Move indents by 2 when << or >>
 set shiftwidth=2
+
+" ... even for Markdown files
+let g:markdown_recommended_style = 0
 
 " ... but round to the nearest 2
 set shiftround
@@ -149,47 +196,3 @@ set backspace=2
 
 " Improve scroll performance (uhh...?)
 set ttyfast
-
-
-" LSP integration. Note: Lua time!
-lua << EOF
-  vim.g.markdown_fenced_languages = {
-    "ts=typescript"
-  }
-
-  local nvim_lsp = require('lspconfig')
-
-  nvim_lsp.denols.setup{}
-
-  nvim_lsp.denols.setup {
-    on_attach = on_attach,
-    root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
-  }
-
-  nvim_lsp.tsserver.setup {
-    on_attach = on_attach,
-    root_dir = nvim_lsp.util.root_pattern("package.json"),
-    single_file_support = false
-  }
-
-  vim.keymap.set('n', '[e', vim.diagnostic.open_float)
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-  vim.keymap.set('n', '=', vim.diagnostic.setloclist)
-
-  -- Use LspAttach autocommand to only map the following keys
-  -- after the language server attaches to the current buffer
-  vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-    callback = function(ev)
-      -- Enable completion triggered by <c-x><c-o>
-      vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-      local opts = { buffer = ev.buf }
-      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-      vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    end,
-  })
-EOF
-
