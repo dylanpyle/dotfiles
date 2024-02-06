@@ -14,11 +14,20 @@ lua << EOF
 
   local nvim_lsp = require('lspconfig')
 
-  nvim_lsp.denols.setup{}
-
   nvim_lsp.denols.setup {
     on_attach = on_attach,
-    root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+    root_dir = function (fname)
+      -- In a project with both deno and node files in parent directories, don't attach denols
+      -- This is mostly to play nice with a specific monorepo which has a deno.json in the root,
+      -- so may want to reevaluate this in the future
+      local deno_path = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc")(fname)
+      local node_path = nvim_lsp.util.root_pattern("package.json")(fname)
+      if (deno_path and (not node_path)) then
+        return deno_path
+      else
+        return nil
+      end
+    end
   }
 
   nvim_lsp.tsserver.setup {
