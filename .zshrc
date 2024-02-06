@@ -37,9 +37,6 @@ alias note='(echo && date && cat) >> ~/notes.txt'
 alias bell="echo -ne '\007'"
 alias pg='pgcli --less-chatty'
 
-alias pg_stg='pg $(security find-generic-password -a $USER -s staging-db-string -w)'
-alias pg_prod='pg $(security find-generic-password -a $USER -s production-readonly-db-string -w)'
-alias pg_dangerous_production='pg $(security find-generic-password -a $USER -s production-db-string -w)'
 
 alias cpost='curl -sX POST -H "Content-Type: application/json" '
 alias cget='curl -sX GET '
@@ -134,7 +131,7 @@ if [[ $IN_NIX_SHELL == '' ]]; then
   export PATH=/opt/homebrew/bin:$PATH
   export PATH="/Users/dylan/n/bin:$PATH"
   export PATH=~/bin:$PATH
-  export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
+  export PATH=/opt/homebrew/opt/postgresql@16/bin:$PATH
 fi
 
 export PATH=~/.fastlane/bin:$PATH
