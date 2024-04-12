@@ -67,7 +67,7 @@ gpr() {
   fi
 
   gpush
-  hub pull-request -o "$@" -b main
+  gh pr create
 }
 
 tabname() {

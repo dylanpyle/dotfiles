@@ -36,6 +36,11 @@ lua << EOF
     single_file_support = false
   }
 
+  nvim_lsp.tailwindcss.setup {
+    on_attach = on_attach,
+    root_dir = nvim_lsp.util.root_pattern("tailwind.config.ts")
+  }
+
   vim.keymap.set('n', '[e', vim.diagnostic.open_float)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
@@ -193,6 +198,9 @@ set statusline+=\ %r%w%h " Any flags (readonly etc)
 
 " Remove splash screen
 set shortmess+=I
+
+" Remove scratch buffer when accepting <c-x><c-o> autocompletion
+set completeopt-=preview
 
 
 " # Misc
