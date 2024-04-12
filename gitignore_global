@@ -4,5 +4,4 @@
 .DS_Store
 .vscode
 .npmrc
-.vim
 .env
