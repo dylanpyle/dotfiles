@@ -4,6 +4,7 @@ Plug 'preservim/nerdtree', { 'tag': '7.1.1' }
 Plug 'kien/ctrlp.vim', { 'tag': '1.79' }
 Plug 'neovim/nvim-lspconfig', { 'tag': 'v0.1.7' }
 Plug 'github/copilot.vim', { 'tag': 'v1.17.0' }
+Plug 'hashivim/vim-terraform'
 call plug#end()
 
 " LSP integration. Note: Lua time!
