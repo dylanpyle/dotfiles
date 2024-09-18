@@ -1,5 +1,5 @@
 call plug#begin()
-Plug 'lunacookies/vim-colors-xcode'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'preservim/nerdtree', { 'tag': '7.1.1' }
 Plug 'kien/ctrlp.vim', { 'tag': '1.79' }
 Plug 'neovim/nvim-lspconfig', { 'tag': 'v0.1.7' }
@@ -164,7 +164,7 @@ filetype plugin indent on
 
 " Set current color scheme
 set background=dark
-colorscheme xcodedark
+colorscheme catppuccin-mocha
 
 " Transparent-ish background
 hi Normal ctermbg=NONE

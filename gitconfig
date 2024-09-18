@@ -15,12 +15,10 @@
   db = branch -D
   versions = tag --sort=-v:refname
   sh = "!zsh -c"
-[commit]
-  gpgsign = true
 [push]
   default = current
 [core]
-	excludesfile = /Users/dylan/.gitignore_global
+  excludesfile = /Users/dylan/.gitignore_global
   ignorecase = false
 [diff]
   tool = vimdiff

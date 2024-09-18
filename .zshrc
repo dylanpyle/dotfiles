@@ -28,7 +28,7 @@ alias v='nvim'
 alias vim='nvim'
 alias g='git'
 alias o='open'
-alias f='git grep -Iin'
+alias f='git grep -Iin --color=always'
 alias ff="ggrep -IER --color --exclude-dir 'node_modules' --exclude-dir '.*'"
 alias fff='mdfind -onlyin .'
 alias serve='python3 -m http.server'
