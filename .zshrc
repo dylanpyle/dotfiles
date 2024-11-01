@@ -28,7 +28,7 @@ alias v='nvim'
 alias vim='nvim'
 alias g='git'
 alias o='open'
-alias f='git grep -Iin --color=always'
+alias f='git grep -Iin --color=auto'
 alias ff="ggrep -IER --color --exclude-dir 'node_modules' --exclude-dir '.*'"
 alias fff='mdfind -onlyin .'
 alias serve='python3 -m http.server'
@@ -91,7 +91,7 @@ precmd() {
   ((cntr = cntr + 1))
 }
 
-get_branch_status() {
+print_branch_status() {
   if [[ $(git status --porcelain 2> /dev/null) != "" ]]; then
     echo '•'
   fi
@@ -99,6 +99,11 @@ get_branch_status() {
 
 get_branch_name() {
   local name=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+  echo $name
+}
+
+print_branch_name() {
+  local name=$(get_branch_name)
   if [[ $name != '' ]]; then
     echo '@'$name' '
   fi
@@ -115,7 +120,7 @@ replace() {
 }
 
 local cwd='%{$fg[black]%}%~'
-local current_branch='%{$fg[black]%}$(get_branch_name)$(get_branch_status)'
+local current_branch='%{$fg[black]%}$(print_branch_name)$(print_branch_status)'
 local prompt_color='%(?.%{$fg[green]%}.%{$fg[red]%})'
 PROMPT=$cwd' '$current_branch'
 '$prompt_color'$(get_nix_status)→ '%{$reset_color%}

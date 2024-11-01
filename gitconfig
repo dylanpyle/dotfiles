@@ -18,7 +18,7 @@
 [push]
   default = current
 [core]
-  excludesfile = /Users/dylan/.gitignore_global
+  excludesFile = ~/.gitignore_global
   ignorecase = false
 [diff]
   tool = vimdiff
