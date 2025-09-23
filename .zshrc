@@ -14,6 +14,11 @@ setopt nobeep
 setopt inc_append_history
 setopt share_history
 
+# Option-Left/Right to move by word
+bindkey -e
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;3C" forward-word
+
 # Useful aliases
 
 if [[ $(uname) == 'Darwin' ]]; then
@@ -36,7 +41,6 @@ alias tmux='TERM=screen-256color-bce tmux'
 alias note='(echo && date && cat) >> ~/notes.txt'
 alias bell="echo -ne '\007'"
 alias pg='pgcli --less-chatty'
-
 
 alias cpost='curl -sX POST -H "Content-Type: application/json" '
 alias cget='curl -sX GET '
@@ -125,8 +129,6 @@ local prompt_color='%(?.%{$fg[green]%}.%{$fg[red]%})'
 PROMPT=$cwd' '$current_branch'
 '$prompt_color'$(get_nix_status)→ '%{$reset_color%}
 
-export DENO_INSTALL="/Users/dylan/.deno"
-
 if [[ $IN_NIX_SHELL == '' ]]; then
   # If we're inside a nix shell, don't set certain paths that we expect that to
   # provide (e.g. findutils, node, homebrew)
@@ -134,35 +136,24 @@ if [[ $IN_NIX_SHELL == '' ]]; then
   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
   export PATH=/usr/local/bin:$PATH
   export PATH=/opt/homebrew/bin:$PATH
-  export PATH="/Users/dylan/n/bin:$PATH"
-  export PATH=~/bin:$PATH
+  export PATH="$HOME/n/bin:$PATH"
+  export PATH="$HOME/bin:$PATH"
   export PATH=/opt/homebrew/opt/postgresql@16/bin:$PATH
 fi
 
-export PATH=~/.fastlane/bin:$PATH
-export PATH=~/Library/Python/3.6/bin:$PATH
-export PATH=/usr/local/texlive/2017basic/bin/x86_64-darwin:$PATH
-export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin":$PATH
+
+export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH="/nix/var/nix/profiles/default/bin:$PATH"
+export PATH="$HOME/Downloads/google-cloud-sdk/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
 
 export EDITOR='nvim'
-
-bindkey -e
-bindkey '[C' forward-word
-bindkey '[D' backward-word
-
+export N_PREFIX="$HOME/n"
 export GPG_TTY=$(tty)
 
-source ~/.env.private
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-export N_PREFIX='/Users/dylan/n'
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/dylan/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dylan/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/dylan/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dylan/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+test -e "$HOME/.env.private" && source "$HOME/.env.private"
+test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"

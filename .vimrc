@@ -1,9 +1,14 @@
 call plug#begin()
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-Plug 'preservim/nerdtree', { 'tag': '7.1.1' }
+
+" neo-tree dependencies
+Plug 'MunifTanjim/nui.nvim', { 'tag': '0.4.0' }
+Plug 'nvim-lua/plenary.nvim', { 'tag': 'b9fd52' }
+
+Plug 'nvim-neo-tree/neo-tree.nvim', { 'tag': '3.35' }
 Plug 'kien/ctrlp.vim', { 'tag': '1.79' }
-Plug 'neovim/nvim-lspconfig', { 'tag': 'v0.1.7' }
-Plug 'github/copilot.vim', { 'tag': 'v1.17.0' }
+Plug 'neovim/nvim-lspconfig', { 'tag': 'v2.4.0' }
+Plug 'github/copilot.vim', { 'tag': 'v1.41.0' }
 Plug 'hashivim/vim-terraform'
 call plug#end()
 
@@ -61,6 +66,65 @@ lua << EOF
       vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     end,
   })
+
+  require("neo-tree").setup({
+    enable_git_status = true,
+    default_component_configs = {
+      icon = {
+        folder_closed = "▶",
+        folder_open = "▼",
+        folder_empty = "▷",
+        default = "*",
+        highlight = "NeoTreeFileIcon",
+      },
+      modified = {
+        symbol = "[+]",
+        highlight = "NeoTreeModified",
+      },
+      name = {
+        trailing_slash = true,
+        use_git_status_colors = true,
+        highlight = "NeoTreeFileName",
+      },
+      git_status = {
+        symbols = {
+          -- Change type
+          added = "[a]", -- or "✚"
+          modified = "[m]", -- or ""
+          deleted = "[d]", -- this can only be used in the git_status source
+          renamed = "[r]", -- this can only be used in the git_status source
+          -- Status type
+          untracked = "[ut]",
+          ignored = "[i]",
+          unstaged = "[us]",
+          staged = "[s]",
+          conflict = "[c]",
+        },
+      },
+    },
+    buffers = {
+      follow_current_file = {
+        enabled = true, -- This will find and focus the file in the active buffer every time
+        --              -- the current file is changed while the tree is open.
+        leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+      },
+      group_empty_dirs = true, -- when true, empty folders will be grouped together
+      show_unloaded = true,
+    },
+
+    window = {
+      mapping_options = {
+        noremap = true,
+        nowait = true,
+      },
+      mappings = {
+        ["<space>"] = {
+          "close_window",
+          nowait = true
+        },
+      },
+    },
+  })
 EOF
 
 
@@ -78,14 +142,17 @@ nnoremap <Leader>p "*p<CR><Esc>
 " cp to copy file path to system clipboard
 nmap cp :let @* = expand("%")<CR>
 
-" ,f as an alias for NERDTreeFind
-nmap <Leader>f :NERDTreeFind<CR>
+" ,f to reveal current file in tree
+nmap <Leader>f :Neotree filesystem reveal<CR>
+
+" ,g to show git status
+nmap <Leader>g :Neotree git_status<CR>
 
 " ,b to git blame
 nmap <Leader>b :tabe\|read !git blame --date=short #<CR>
 
-" Use <Space> to toggle NERDTree
-noremap <Space> :NERDTreeToggle<CR>
+" Use <Space> to toggle file tree
+noremap <Space> :Neotree toggle<CR>
 
 " In visual mode, use space for sort
 vmap <Space> :sort i<CR>
@@ -180,12 +247,6 @@ match ExtraWhitespace /\s\+$/
 
 " Show row/column position
 set ruler
-
-" Hide NERDTree clutter
-let NERDTreeMinimalUI=1
-
-" Don't quit NERDTree when we open a tab
-let NERDTreeQuitOnOpen = 0
 
 " Always show statusline
 set laststatus=2

@@ -1,7 +1,6 @@
 [alias]
-  dad = add
   br = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:black)%(committerdate:short) %(color:blue)%(refname:short) %(color:black)%(authorname)' --count=20 --no-merge
-  pending = log origin/production..origin/master --merges --pretty=format:'%b (%an)'
+  pending = log origin/production..origin/main --merges --pretty=format:'%b (%an)'
   st = status
   ci = commit
   c = checkout
@@ -14,7 +13,6 @@
   ds = diff --stat
   db = branch -D
   versions = tag --sort=-v:refname
-  sh = "!zsh -c"
 [push]
   default = current
 [core]
@@ -22,6 +20,10 @@
   ignorecase = false
 [diff]
   tool = vimdiff
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
 [difftool]
   prompt = false
   trustExitCode = true
@@ -36,3 +38,11 @@
   signingkey = 11111111
 [init]
   defaultBranch = main
+[branch]
+  sort = -committerdate
+[column]
+  ui = auto
+[fetch]
+  prune = true
+  pruneTags = true
+  all = true
